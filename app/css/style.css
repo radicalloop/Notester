@@ -1,0 +1,130 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 29 Aug, 2016, 8:06:25 PM
+    Author     : dl2
+*/
+
+
+body, .container, ul, div.add-note-p {
+    margin: 0;
+    padding: 0;
+}
+[contenteditable]:focus { outline: 0px solid transparent; }
+
+body{
+    font-size: 14px;
+    font-family: verdana;
+}
+.wrapper {
+    width: 100%;
+}
+.container{
+    width: 100%;
+    float: left;
+    display: flex;
+}
+
+
+.contex-menu {
+    background-color: #464646;
+    color: #FFF;
+}
+
+span.logo {
+    font-family: monospace;
+    font-size: 1.9em !important;
+}
+
+span.add-new{
+    font-weight: 500;
+    color: #fff;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    width: 19.2%;
+    position: fixed;
+    bottom: 0;
+}
+span.add-note {
+    background-color: #555;
+}
+span.add-page {
+    background-color: #757575;
+}
+
+
+ul {
+    list-style: none;
+}
+
+
+.list{
+    float: left;
+}
+
+.file-list , .note-list {
+    width: 18%;
+    color: #fff;
+    margin-right: 3px;
+    flex: 1;
+}
+
+
+.file-list{
+    background-color: #FAFAFA;
+}
+.file-list > ul > li {
+    background-color: #757575;
+    font-weight: 500;
+    color: #fff;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100%;
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
+}
+.file-list > ul > li:hover , .file-list > ul > li.active-file{
+    background-color: #9E9E9E;
+}
+
+
+.note-list{
+    background-color: #FAFAFA;
+}
+.note-list > ul > li {
+    background-color: #9E9E9E;
+    font-weight: 500;
+    color: #fff;
+    padding: 6px 10px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    width: 100%;
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
+}
+.note-list > ul > li:hover , .note-list > ul > li.active-note{
+    background-color: #EEEEEE;
+    color:#000;
+}
+.note-list > ul > li > lable {
+    float: left;
+    width: 100%;
+}
+
+.notes{
+    padding: 8px 8px 8px 13px;
+    width: 61%;
+    white-space: pre-line;
+}
