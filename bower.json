@@ -1,0 +1,22 @@
+{
+  "name": "notester",
+  "description": "Notester on Electron",
+  "main": "./main.js",
+  "authors": [
+    "RadicalLoop"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular": "angularjs#^1.5.8",
+    "angular-ui-router": "^0.3.1",
+    "bootstrap": "^3.3.7"
+  }
+}

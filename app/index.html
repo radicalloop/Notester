@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="notester">
     <head>
         <title>Notester</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./css/style.css">
 
     </head>
-    <body>
+    <body ng-controller="AppController as vm">
         <header>
             <div class="wrapper">
                 <div class="container contex-menu">
@@ -26,86 +26,25 @@
         <div class="clear clearfix"></div>
         <section>
             <div class="wrapper">
-                <div class="container">
-                    <div class="list file-list">
-                        <ul>
-                            <li>Note 1</li>
-                            <li class="active-file">Note 2</li>
-                            <li>Note 3</li>
-                            <li>Note 4</li>
-                            <li>Note 5</li>
-                        </ul>
-                        <span class="add-new add-note">+ Note</span>
-                    </div>
-                    <div class="list note-list">
-                        <ul>
-                            <li >
-                            <lable>Page 1</lable>
-                            <small>31th Aug 2016 12:25pm</small>
-                            </li>
-                            <li>
-                            <lable>Page 2</lable>
-                            <small>31th Aug 2016 12:25pm</small>
-                            </li>
-                            <li class="active-note">
-                            <lable>Page 3</lable>
-                            <small>31th Aug 2016 12:25pm</small>
-                            </li>
-                            <li>
-                            <lable>Page 4</lable>
-                            <small>31th Aug 2016 12:25pm</small>
-                            </li>
-                            <li>
-                            <lable>Page 5</lable>
-                            <small>31th Aug 2016 12:25pm</small>
-                            </li>
-                            <li>
-                            <lable>Page 6</lable>
-                            <small>31th Aug 2016 12:25pm</small>
-                            </li>
-                        </ul>
-                        <span class="add-new add-page">+ Page</span>
-                    </div>
-                    <div class="list notes" contenteditable="true">
-                        The standard Lorem Ipsum passage, used since the 1500s
-
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                        Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-
-                        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-                        eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                        voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-                        sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non
-                        numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
-                        quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-                        Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
-                        vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-                        1914 translation by H. Rackham
-
-                        "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and
-                        I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth,
-                        the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure,
-                        but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.
-                        Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because
-                        occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example,
-                        which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right
-                        to find fault with a man who chooses to enjoy
-                        a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"
-                    </div>
+                <div class="container" ui-view="main">
                 </div>
             </div>
         </section>
 
-        <script src="./libs/jquery-3.1.0.min.js"></script>
-        <script>
-            try {
-                $ = jQuery = module.exports;
-                module.exports = {};
-            } catch(e) {}
-        </script>
+        <!-- bower:js -->
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <!-- endbower -->
+
+        <!-- build:app scripts:app.js -->
         <script src="./js/app.js"></script>
+        <script src="./js/app.config.js"></script>
+        <script src="./js/app.router.js"></script>
+
+        <script src="./js/src/common/directives/app.directives.js"></script>
+        <script src="./js/src/common/services/NoteService.js"></script>
+
+        <script src="./js/src/home/home.js"></script>
+        <!-- endbuild -->
     </body>
 </html>

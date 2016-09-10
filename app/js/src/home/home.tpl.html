@@ -1,0 +1,17 @@
+<div class="list file-list">
+    <ul id="notes_list">
+        <li ng-attr-id="{{note.id}}" ng-class="{ 'active-file': vm.selectedNote == $index}" ng-repeat="note in vm.notes track by $index" note-naming="note" is-new-note="note.isNewNote" ng-click="vm.getPages($index, note);">
+        </li>
+    </ul>
+    <span class="add-new add-note" ng-click="vm.addNote();">+ Note</span>
+</div>
+<div class="list note-list">
+    <ul>
+        <li ng-repeat="page in vm.currentNote.pages track by $index" ng-class="{ 'active-note': vm.selectedPage == $index}" ng-click="vm.setCurrentPage($index, page);">
+            <lable>{{page.title}}</lable>
+            <small>{{page.updated_at}}</small>
+        </li>
+    </ul>
+    <span class="add-new add-page" ng-click="vm.addPage();">+ Page</span>
+</div>
+<div class="list notes" contenteditable="true" strip-br="true" ng-model="vm.currentPage.content">{{vm.currentPage.content}}</div>

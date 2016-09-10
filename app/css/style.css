@@ -71,7 +71,7 @@ ul {
 
 .file-list , .note-list {
     width: 18%;
-    color: #fff;
+    /*color: #fff;*/
     margin-right: 3px;
     flex: 1;
 }
@@ -83,7 +83,7 @@ ul {
 .file-list > ul > li {
     background-color: #757575;
     font-weight: 500;
-    color: #fff;
+    /*color: #fff;*/
     padding: 10px 32px;
     text-align: center;
     text-decoration: none;
@@ -104,7 +104,7 @@ ul {
 .note-list > ul > li {
     background-color: #9E9E9E;
     font-weight: 500;
-    color: #fff;
+    /*color: #fff;*/
     padding: 6px 10px;
     text-align: left;
     text-decoration: none;

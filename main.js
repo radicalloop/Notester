@@ -1,11 +1,12 @@
 'use strict';
 
-const electron = require('electron');
-const app      = electron.app;
-
-const BrowserWindow = electron.BrowserWindow;
+const {
+    app,
+    BrowserWindow,
+} = require('electron');
 
 let mainWindow;
+
 
 app.on('ready', function() {
     mainWindow = new BrowserWindow({
@@ -14,6 +15,13 @@ app.on('ready', function() {
     });
 
     mainWindow.webContents.openDevTools();
-
     mainWindow.loadURL('file://' + __dirname + '/app/index.html');
+
+    // electronLocalshortcut.register(mainWindow, 'Delete', () => {
+    //     console.log('Delete is pressed');
+    // });
+
+    // Check whether a shortcut is registered.
+    //console.log(electronLocalshortcut.isRegistered('Delete'));
+
 });
