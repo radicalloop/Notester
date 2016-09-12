@@ -1,13 +1,26 @@
+var db = new PouchDB('bd_notester', {adapter: 'websql'});
+
 function NoteService($http, $q)
 {
     var noteService = {};
 
     noteService.getNotes = function() {
-        var deferred = $q.defer();
 
-        deferred.resolve('Get Notes..');
+        return db.put({
+          _id: 'mydoc',
+          title: 'Heroes'
+        }).then(function (response) {
+            console.log(response);
+          // handle response
+        }).catch(function (err) {
+          console.log(err);
+        });
 
-        return deferred.promise;
+        // var deferred = $q.defer();
+
+        // deferred.resolve('Get Notes..');
+
+        // return deferred.promise;
     };
 
     return noteService;

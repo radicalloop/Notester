@@ -18,5 +18,8 @@
     "angular": "angularjs#^1.5.8",
     "angular-ui-router": "^0.3.1",
     "bootstrap": "^3.3.7"
+  },
+  "dependencies": {
+    "pouchdb": "^6.0.4"
   }
 }
