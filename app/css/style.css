@@ -13,6 +13,9 @@ body, .container, ul, div.add-note-p {
     margin: 0;
     padding: 0;
 }
+[contenteditable] {
+    line-height: 18px;
+}
 [contenteditable]:focus { outline: 0px solid transparent; }
 
 body{

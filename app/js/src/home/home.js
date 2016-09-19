@@ -23,7 +23,7 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
             type       : 'note',
             title      : 'New Note',
             isNewNote  : true,
-            created_at : new Date(),
+            created_at : new Date().getTime(),
             pages      : []
         };
 
@@ -56,8 +56,8 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
 
             if (vm.currentNote.pages)
             {
-                var firstPage = vm.currentNote.pages[0];
-                vm.setCurrentPage(0, firstPage);
+                var lastPage = vm.currentNote.pages[vm.currentNote.pages.length - 1];
+                vm.setCurrentPage(0, lastPage);
             }
         }, function(error) {
             console.log(error);
@@ -77,11 +77,11 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
             note_id    : vm.currentNote._id,
             type       : 'page',
             title      : vm.currentNote.title + ' Page ' + newPageCnt,
-            updated_at : new Date(),
+            updated_at : new Date().getTime(),
             content    : 'This is content of page ' + newPageCnt
         };
 
-        vm.selectedPage = vm.currentNote.pages.length;
+        vm.selectedPage = 0;
         vm.currentNote.pages.push(newPage);
 
         vm.currentPage = newPage;
@@ -119,7 +119,7 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
     //Saving page
     var pageTimeout = null;
     var savePage = function() {
-        vm.currentPage.updated_at = new Date();
+        vm.currentPage.updated_at = new Date().getTime();
 
         NoteService.savePage(vm.currentPage).then(function(response){
             console.log('Page Saved');

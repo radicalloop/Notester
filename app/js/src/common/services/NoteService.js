@@ -6,33 +6,24 @@ function NoteService($http, $q, pouchdb, $rootScope)
 
         var deferred = $q.defer();
 
-        var map = function(doc) {
-            if (doc.type === 'note') {
-                emit(doc, null);
-            }
-        };
 
-        pouchdb.query(map, {
-            include_docs : true,
-            reduce: false
-        }).then(function (response) {
-
-            var notes = response.rows.map(function(r) {
-                var note = r.key;
+        pouchdb.find({
+            selector: {type: 'note'},
+        }).then(function (result) {
+            var notes = result.docs.map(function(r) {
+                var note = r;
 
                 note.id        = note._id;
                 note.editing   = 0;
                 note.isNewNote = false;
                 note.pages     = [];
 
-                delete r.key;
-
                 return note;
             });
 
             deferred.resolve(notes);
         }).catch(function (err) {
-            deferred.reject(notes);
+            deferred.reject(err);
         });
 
         return deferred.promise;
@@ -91,7 +82,8 @@ function NoteService($http, $q, pouchdb, $rootScope)
         var deferred = $q.defer();
 
         pouchdb.find({
-            selector: {type: 'page', note_id: note_id},
+            selector: {note_id: note_id, updated_at: {$gt: null}, type: 'page'},
+            //sort: [{'updated_at': 'desc'}]
         }).then(function (result) {
 
             var pages = result.docs.map(function(r) {

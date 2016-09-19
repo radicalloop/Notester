@@ -64,43 +64,27 @@ angular
             scope: {
                 currentPage: '='
             },
-            getPosition: function(str, m, i) {
-                return str.split(m, i).join(m).length;
+            getLines: function(lines, upto) {
+                var finalLine = [];
+
+                for (var i = 0; i < lines.length; i++) {
+
+                    if (lines[i])
+                    {
+                        finalLine.push(lines[i]);
+                    }
+
+                    if (finalLine.length >= upto) break;
+                }
+
+                return finalLine.join(" ");
             },
             getTitle: function(elemHtml) {
-                var brIndex  = elemHtml.indexOf("<br");
-                var divIndex = elemHtml.indexOf("<div");
-                var cutIndex = false;
+                var divElem        = angular.element(document.createElement("div"));
+                var strippedString = elemHtml.replace(/(<([^>]+)>)/ig,"|<<<<<<|");
+                var title          = this.getLines(strippedString.split('|<<<<<<|'), 1);
+                    title          = divElem.html(title).text().trim();
 
-                console.log(elemHtml);
-
-                if (brIndex < 0)
-                {
-                    cutIndex = divIndex;
-                }
-                else if (divIndex < 0)
-                {
-                    cutIndex = brIndex;
-                }
-                else
-                {
-                    cutIndex = (brIndex > divIndex) ? divIndex : brIndex;
-                }
-
-                var divHtml  = elemHtml.substr(0, cutIndex);
-                var pageTitleElem = angular.element(document.querySelector('#page_title'));
-
-
-                if (divHtml)
-                {
-                    pageTitleElem.html(divHtml);
-                }
-                else
-                {
-                    pageTitleElem.html(elemHtml);
-                }
-
-                var title = pageTitleElem.text().trim();
                 title = (title.length < 15) ? title : title.substring(0, 15) + '...';
 
                 if (!title.length) title = 'New Page';

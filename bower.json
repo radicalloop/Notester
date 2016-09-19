@@ -22,6 +22,7 @@
   "dependencies": {
     "pouchdb": "^6.0.4",
     "angular-material": "^1.1.1",
-    "pouchdb-find": "^0.10.3"
+    "pouchdb-find": "^0.10.3",
+    "material-design-icons": "^3.0.1"
   }
 }

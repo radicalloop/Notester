@@ -7,7 +7,7 @@
 </div>
 <div class="list note-list">
     <ul>
-        <li ng-repeat="page in vm.currentNote.pages track by $index" ng-class="{ 'active-note': vm.selectedPage == $index}" ng-click="vm.setCurrentPage($index, page);">
+        <li ng-repeat="page in vm.currentNote.pages | orderBy: 'page.updated_at':true track by $index" ng-class="{ 'active-note': vm.selectedPage == $index}" ng-click="vm.setCurrentPage($index, page);">
             <lable>{{page.title}}</lable>
             <small>{{page.updated_at | date: "MMM d, y h:mm a"}}</small>
         </li>
@@ -15,4 +15,3 @@
     <span class="add-new add-page" ng-click="vm.addPage();">+ Page</span>
 </div>
 <div class="list notes" id="page_content" contenteditable="true" strip-br="true" current-page="vm.currentPage" ng-model="vm.currentPage.content">{{vm.currentPage.content}}</div>
-<div id="page_title" class="hide"></div>
