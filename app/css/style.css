@@ -26,7 +26,7 @@ body, .container, ul, div.add-note-p {
 
 body {
     font-size: 14px;
-    font-family: verdana;
+    font-family: Verdana, Geneva, sans-serif !important;
 }
 
 [contenteditable] { line-height: 1.8; }
@@ -54,7 +54,7 @@ body {
 
 .logo > h1 {
     font-size: 1.7em !important;
-    font-family: monospace;
+    font-family: "Lucida Console", Monaco, monospace;
     margin: 0;
     margin-top: 1%;
     color:#000;
@@ -77,8 +77,20 @@ body {
 }
 
 .note-list {
+    line-height: 1.7 !important;
     float: left;
     width: 100%;
+}
+
+#left .note-list > p {
+    font-weight: bold;
+}
+#right .note-list > p {
+    text-transform: capitalize;
+}
+
+.md-button.md-default-theme:not([disabled]):hover, .md-button:not([disabled]):hover {
+    background-color: rgba(195, 241, 255, 0.22) !important;
 }
 
 .note-title {
