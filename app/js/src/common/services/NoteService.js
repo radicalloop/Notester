@@ -55,6 +55,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
     };
 
     noteService.savePage = function(page) {
+
         var deferred = $q.defer();
 
         pouchdb.put(page).then(function (response) {
@@ -120,6 +121,8 @@ function NoteService($http, $q, pouchdb, $rootScope)
             // var lastState = result.docs.map(function(r) {
             //     return r;
             // });
+
+            //console.log(result);
 
             var lastState = (result.docs.length) ? result.docs[0] : [];
 

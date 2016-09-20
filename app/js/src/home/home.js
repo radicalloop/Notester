@@ -110,9 +110,9 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
             _id        : UtilityService.getId(),
             note_id    : vm.currentNote._id,
             type       : 'page',
-            title      : vm.currentNote.title + ' Page ' + newPageCnt,
+            title      : 'New Page',
             updated_at : new Date().getTime(),
-            content    : 'This is content of page ' + newPageCnt
+            content    : ''
         };
 
         vm.selectedPage = 0;
