@@ -7,52 +7,183 @@ and open the template in the editor.
     Created on : 29 Aug, 2016, 8:06:25 PM
     Author     : dl2
 */
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../../bower_components/material-design-icons/iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+        local('MaterialIcons-Regular'),
+        url(../../bower_components/material-design-icons/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
+        url(../../bower_components/material-design-icons/iconfont/MaterialIcons-Regular.woff) format('woff'),
+        url(../../bower_components/material-design-icons/iconfont/MaterialIcons-Regular.ttf) format('truetype');
+}
+
 body, .container, ul, div.add-note-p {
     margin: 0;
     padding: 0;
 }
-[contenteditable]:focus { outline: 0px solid transparent; }
-[contenteditable] { line-height: 1.8; }
 
-body{
+body {
     font-size: 14px;
     font-family: verdana;
 }
 
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(../../bower_components/material-design-icons/iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(../../bower_components/material-design-icons/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
-       url(../../bower_components/material-design-icons/iconfont/MaterialIcons-Regular.woff) format('woff'),
-       url(../../bower_components/material-design-icons/iconfont/MaterialIcons-Regular.ttf) format('truetype');
-}
+[contenteditable] { line-height: 1.8; }
+[contenteditable]:focus { outline: 0px solid transparent; }
+
 .material-icons {
-  z-index: 9999 !important;
-  outline: none;
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
-  /* Support for IE. */
-  font-feature-settings: 'liga';
+    z-index: 9999 !important;
+    outline: none;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
 }
+
+.logo > h1 {
+    font-size: 1.7em !important;
+    font-family: monospace;
+    margin: 0;
+    margin-top: 1%;
+    color:#000;
+}
+.icones-wapper {
+    margin-top: 2px;
+    display: block;
+}
+
+.icones i {
+    cursor: pointer;
+}
+
+.box {
+    background-color: #fff;
+    border-radius: 5px;
+    width: 15%;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+.note-list {
+    float: left;
+    width: 100%;
+}
+
+.note-title {
+    z-index: 9999;
+    width: 100%;
+    background: #fff !important;
+}
+
+#right .active {
+    background: #1976d2 !important;
+    color: #fff;
+}
+
+#left .active {
+    background: #BBDEFB !important;
+}
+
+.add_note_btn {
+    margin: 0 auto;
+    padding: 0px 2px 0px 0px ;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+.add_note_btn > i {
+    margin: 0;
+}
+
+.note-list-settings {
+    margin-top: 5px;
+    float: right;
+}
+
+.note-title {
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    padding: 4px 3px;
+}
+
+
+input[type=text].search {
+    color:#000;
+    float:right;
+    width: 130px;
+    box-sizing: border-box;
+    border: none;
+    background-color: #fff;
+    padding: 7px 13px;
+    outline: none;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text].active {
+    width: 80%;
+    outline: none;
+    border-bottom: 2px solid #bfbfbf;
+}
+
+.h-93 {
+    height: 93%;
+}
+
+.m-t-2 {
+    margin-top: 2px;
+}
+
+.height-100 {
+    height: 100%;
+}
+.overflow-y {
+    overflow-y: auto;
+}
+
+.col-sm-3, .col-sm-9, .col-sm-4 {
+    float: left;
+    margin: 1%;
+
+}
+.cols-row {
+    background: #fff;
+    float: left;
+}
+.col-sm-3 {
+    width: 26%;
+}
+.col-sm-4 {
+    width: 30%;
+}
+.col-sm-9 {
+    width: 70%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.margin-none {
+    margin: 0 !important;
+}
+.padding-none {
+    padding: 0 !important;
+}
+
+
 /* Rules for sizing the icon. */
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-21 { font-size: 21px; }
@@ -69,141 +200,14 @@ body{
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
 
 
-ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-ul > li {
-    padding: 7px;
-
-}
-.note-list {
-    float: left;
-    width: 100%;
-/*    z-index: 9999 !important;*/
-}
-.overflow-y {
-    overflow-y: auto;
-}
-.height-100 {
-    height: 100%;
-}
-
-#right .active {
-    background: rgba(165, 171, 14, 0.23) !important;
-}
-#left .active {
-    background: rgba(140, 158, 255, 0.3) !important;
-}
-
-.note-list-settings{
-    margin-top: 5px;
-    float: right;
-}
-.m-t-2 {
-    margin-top: 2px;
-}
-.add_note_btn{
-    /*min-height: 50px;*/
-    margin: 0 auto;
-    padding: 0px 2px 0px 0px ;
-    margin-top: 7px;
-    margin-bottom: 7px;
-}
-md-tooltip > div {
-    height: inherit !important;
-    background-color: #000 !important;
-    opacity: 1 !important;
-
-    white-space: pre-line !important;
-}
-.add_note_btn > i {
-    margin: 0;
-}
-
-.icones-wapper {
-    margin-top: 2px;
-    display: block;
-}
-
-.box {
-    background-color: #fff;
-    border-radius: 5px;
-    width: 15%;
-    margin: 0 auto;
-    display: inline-block;
-}
-.text-center {
-    text-align: center;
-}
-.col-sm-3, .col-sm-9, .col-sm-4 {
-    float: left;
-    margin: 1%;
-
-}
-.cols-row{
-    background: rgb(228, 228, 228) ;
-    float: left;
-}
-.col-sm-3 {
-    width: 26%;
-}
-.col-sm-4 {
-    width: 30%;
-}
-.col-sm-9 {
-    width: 70%;
-}
-
-.logo > h1 {
-    font-size: 1.7em !important;
-    font-family: monospace;
-    margin: 0;
-    margin-top: 1%;
-    color:#FFF;
-}
-.icones > i{
-    cursor: pointer;
-}
-
-::-webkit-scrollbar
-{
+::-webkit-scrollbar {
     width: 6px;
     background-color: #F3F2F1;
 }
-::-webkit-scrollbar-track
-{
+::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     background-color: #F5F5F5;
 }
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
     background-color: rgba(156, 160, 162, 0.80);
-}
-.margin-none{
-    margin: 0 !important;
-}
-.padding-none{
-    padding: 0 !important;
-}
-
-
-input[type=text].search {
-    float:right;
-    width: 130px;
-    box-sizing: border-box;
-    border: 0px;
-    background-color: #e4e4e4;
-    padding: 7px 13px;
-    outline: none;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
-}
-
-input[type=text].search.active {
-    width: 80%;
-    outline: none;
-    border-bottom: 2px solid #fff;
 }
