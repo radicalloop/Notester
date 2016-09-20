@@ -10,10 +10,13 @@ angular
                 isNewNote: '=',
                 saveCallback: '&'
             },
-            template: [
-                '<span ng-hide="note.editing">{{note.title}}</span>',
-                '<input type="text" value="{note.title}" ng-hide="!note.editing" ng-model="note.title" name="note_title[]"  />'
-            ].join(''),
+            // template: [
+            //     '<div class="md-list-item-text note-list" layout="column">',
+            //         '<p class="fleft margin-none" ng-hide="note.editing">{{note.title}}</p>',
+            //         '<input type="text" value="{note.title}" class="note-title" ng-hide="!note.editing" ng-model="note.title" name="note_title[]"  />',
+            //     '</div>',
+            //     '<md-divider></md-divider>'
+            // ].join(''),
             link : function (scope, element, attrs) {
                 var input = angular.element(element[0].querySelector('input[name="note_title[]"]'));
 
@@ -31,6 +34,7 @@ angular
 
                 input.on('blur', function(){
                     scope.note.editing = 0;
+                    scope.note.title   = (scope.note.title.trim()) ? scope.note.title : "New Note";
 
                     scope.saveCallback();
                     scope.$apply();
@@ -39,6 +43,7 @@ angular
                 input.on("keydown keypress", function (event) {
                     if(event.which === 13) {
                         scope.$apply(function () {
+                            scope.note.title = (scope.note.title.trim()) ? scope.note.title : "New Note";
 
                             scope.saveCallback();
                             scope.note.editing = 0;

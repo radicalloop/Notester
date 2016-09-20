@@ -3,9 +3,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
     var noteService = {};
 
     noteService.getNotes = function() {
-
         var deferred = $q.defer();
-
 
         pouchdb.find({
             selector: {type: 'note'},
@@ -98,6 +96,40 @@ function NoteService($http, $q, pouchdb, $rootScope)
         return deferred.promise;
     };
 
+    noteService.updateNoteCurrentState = function(currentState) {
+        var deferred = $q.defer();
+
+        pouchdb.put(currentState).then(function (response) {
+            currentState._rev = response.rev;
+            deferred.resolve(response);
+        }).catch(function (err) {
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+    };
+
+    noteService.getNoteCurrentState = function(currentState) {
+        var deferred = $q.defer();
+
+        pouchdb.find({
+            selector: {type: 'last_state'},
+            //sort: [{'updated_at': 'desc'}]
+        }).then(function (result) {
+            //console.log(result[0]);
+            // var lastState = result.docs.map(function(r) {
+            //     return r;
+            // });
+
+            var lastState = (result.docs.length) ? result.docs[0] : [];
+
+            deferred.resolve(lastState);
+        }).catch(function (err) {
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+    };
 
     return noteService;
 }

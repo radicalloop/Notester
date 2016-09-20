@@ -1,17 +1,68 @@
-<div class="list file-list">
-    <ul id="notes_list">
-        <li ng-attr-id="{{note._id}}" ng-class="{ 'active-file': vm.selectedNote == $index}" ng-repeat="note in vm.notes track by $index" note-naming="note" is-new-note="note.isNewNote" save-callback="vm.saveCurrentNote()" ng-click="vm.getPages($index, note);">
-        </li>
-    </ul>
-    <span class="add-new add-note" ng-click="vm.addNote();">+ Note</span>
-</div>
-<div class="list note-list">
-    <ul>
-        <li ng-repeat="page in vm.currentNote.pages | orderBy: 'page.updated_at':true track by $index" ng-class="{ 'active-note': vm.selectedPage == $index}" ng-click="vm.setCurrentPage($index, page);">
-            <lable>{{page.title}}</lable>
-            <small>{{page.updated_at | date: "MMM d, y h:mm a"}}</small>
-        </li>
-    </ul>
-    <span class="add-new add-page" ng-click="vm.addPage();">+ Page</span>
-</div>
-<div class="list notes" id="page_content" contenteditable="true" strip-br="true" current-page="vm.currentPage" ng-model="vm.currentPage.content">{{vm.currentPage.content}}</div>
+<section layout="row">
+    <div flex="100" layout="column" class="md-whiteframe-1dp">
+        <div class="cols-row">
+            <div class="col-sm-4 logo">
+                <h1>Notester</h1>
+            </div>
+            <div class="col-sm-4 text-center icones row">
+                <div class="icones-wapper">
+                    <div class="box">
+                        <i class="material-icons md-21 md-dark md-inactive fright " >&#xE0BE;</i>
+                    </div>
+                    <div class="box">
+                        <i class="material-icons md-21 md-dark md-inactive fright " >&#xE0E2;</i>
+                    </div>
+                    <div class="box">
+                        <i class="material-icons md-21 md-dark md-inactive fright " >&#xE8AD;</i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 icones">
+                <input type="text" name="search" placeholder="Search..."
+                       ng-class="{active : clicked === 1}" class="search" ng-focus="clicked = 1" ng-blur="clicked = 0" >
+                <i class="material-icons md-28 md-dark md-inactive fright note-list-settings" >&#xE8B6;</i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section layout="row" flex class="height-100 m-t-2">
+    <div flex="20" layout="column" class="md-whiteframe-1dp" id="right">
+        <md-content>
+            <md-list class="padding-none" id="notes_list" flex>
+                <md-list-item class="sm-1-line" ng-attr-id="{{note._id}}" ng-class="{ 'active': vm.selectedNote == $index}" ng-repeat="note in vm.notes track by $index" note-naming="note" is-new-note="note.isNewNote" save-callback="vm.saveCurrentNote()" ng-click="vm.getPages($index, note);">
+                        <div class="md-list-item-text note-list" layout="column">
+                            <p class="fleft margin-none" ng-hide="note.editing">{{note.title}}</p>
+                            <input type="text" value="{note.title}" class="note-title" ng-hide="!note.editing" ng-model="note.title" name="note_title[]"  />
+                        </div>
+                        <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-content>
+        <md-button class="md-fab md-mini  md-primary add_note_btn" aria-label="New Note" ng-click="vm.addNote();">
+            <i class="material-icons md-36 md-inactive fright note-list-settings" >add</i>
+        </md-button>
+    </div>
+    <div flex="20" layout="column" class="md-whiteframe-1dp " id="left">
+        <md-content>
+            <md-list class="padding-none" flex>
+                <md-list-item class="sm-1-line" ng-repeat="page in vm.currentNote.pages | orderBy: 'page.updated_at':true track by $index" ng-class="{ 'active': vm.selectedPage == $index}" ng-click="vm.setCurrentPage($index, page);">
+                    <div class="md-list-item-text note-list" layout="column">
+                        <p class="fleft margin-none">
+                            {{page.title}}
+                        </p>
+                        <small>{{page.updated_at | date: "MMM d, y h:mm a"}}</small>
+                    </div>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-content>
+        <md-button class="md-fab md-mini md-primary add_note_btn" ng-click="vm.addPage();" aria-label="New Note">
+            <i class="material-icons md-36 md-inactive fright note-list-settings" >add</i>
+        </md-button>
+    </div>
+
+    <div flex="60" layout="column" class="md-whiteframe-1dp overflow-y md-padding" contenteditable id="page_content" contenteditable="true" strip-br="true" current-page="vm.currentPage" ng-model="vm.currentPage.content">
+            {{vm.currentPage.content}}
+    </div>
+</section>

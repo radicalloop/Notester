@@ -4,36 +4,24 @@
         <title>Notester</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../bower_components/angular-material/angular-material.min.css">
         <link rel="stylesheet" href="./css/style.css">
 
     </head>
-    <body ng-controller="AppController as vm">
-        <header>
-            <div class="wrapper">
-                <div class="container contex-menu">
-                    <div class="col-sm-8">
-                        <span class="logo">
-                            Notester
-                        </span>
-                    </div>
-                    <div class="col-sm-4 text-right add-note-p">
-                        &nbsp;
-                    </div>
-                </div>
+    <body ng-controller="AppController as vm" layout="column">
+        <div layout="row" flex>
+            <div layout="column" flex id="content">
+                <md-content layout="column" flex class="md-padding" ui-view="main">
+                </md-content>
             </div>
-        </header>
-        <div class="clear clearfix"></div>
-        <section>
-            <div class="wrapper">
-                <div class="container" ui-view="main">
-                </div>
-            </div>
-        </section>
+        </div>
 
         <!-- bower:js -->
         <script src="../bower_components/angular/angular.js"></script>
         <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="../bower_components/angular-material/angular-material.min.js"></script>
+        <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="../bower_components/angular-aria/angular-aria.min.js"></script>
         <script src="../bower_components/pouchdb/dist/pouchdb.min.js"></script>
         <script src="../bower_components/pouchdb-find/dist/pouchdb.find.min.js"></script>
         <!-- endbower -->

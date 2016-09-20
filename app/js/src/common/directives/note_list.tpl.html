@@ -1,0 +1,7 @@
+<md-list-item class="sm-1-line" ng-attr-id="{{note._id}}" ng-class="{ 'active': vm.selectedNote == $index}" ng-repeat="note in vm.notes track by $index" note-naming="note" is-new-note="note.isNewNote" save-callback="vm.saveCurrentNote()" ng-click="vm.getPages($index, note);">
+    <div class="md-list-item-text note-list" layout="column">
+        <p class="fleft margin-none" ng-hide="note.editing">{{note.title}}</p>
+        <input type="text" value="{note.title}" class="note-title" ng-hide="!note.editing" ng-model="note.title" name="note_title[]"  />
+    </div>
+    <md-divider></md-divider>
+</md-list-item>

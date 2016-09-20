@@ -16,6 +16,19 @@ function PouchdbService()
       // ouch, an error
     });
 
+    // Create index for notes
+    pouchdb.createIndex({
+        index: {
+            name   : 'last_state_index',
+            type   : 'last_state',
+        }
+    }).then(function (result) {
+      // yo, a result
+    }).catch(function (err) {
+      // ouch, an error
+    });
+
+
     // Create index for pages
     pouchdb.createIndex({
         index: {

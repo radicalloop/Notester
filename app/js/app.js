@@ -3,7 +3,9 @@
 
 angular.module('notester', [
     'ui.router',
-    'app.config'
+    'app.config',
+    'ngMaterial',
+    'ngAnimate'
 ]);
 
 angular.module('notester')
