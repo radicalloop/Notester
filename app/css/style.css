@@ -66,14 +66,16 @@ body {
 
 .icones i {
     cursor: pointer;
+    color: rgba(0,0,0,0.87) !important;
 }
 
 .box {
+    display: inline-block;
     background-color: #fff;
     border-radius: 5px;
     width: 15%;
     margin: 0 auto;
-    display: inline-block;
+    padding-right: 17px;
 }
 
 .note-list {
