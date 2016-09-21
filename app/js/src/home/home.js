@@ -11,11 +11,11 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
     vm.doPageSave   = true;
 
     //Destroy database
-    // NoteService.destroyDb().then(function(response) {
-    //     console.log('DB destroyed');
-    // }, function(error) {
-    //     console.log(error);
-    // });
+    /*NoteService.destroyDb().then(function(response) {
+        console.log('DB destroyed');
+    }, function(error) {
+        console.log(error);
+    });*/
 
     vm.addNote = function() {
         var newNoteCnt = (vm.notes.length + 1);

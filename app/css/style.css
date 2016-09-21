@@ -81,6 +81,10 @@ body {
     width: 100%;
 }
 
+.note-list-cont {
+    background-color: #E4E9EF !important;
+}
+
 .note-title {
     z-index: 9999;
     width: 100%;
@@ -88,7 +92,7 @@ body {
 }
 
 #right .active {
-    background: #1976d2 !important;
+    background: #49A2E3 !important;
     color: #fff;
 }
 
@@ -101,6 +105,7 @@ body {
     padding: 0px 2px 0px 0px ;
     margin-top: 7px;
     margin-bottom: 7px;
+    background-color: #49A2E3 !important;
 }
 .add_note_btn > i {
     margin: 0;
