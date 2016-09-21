@@ -9,6 +9,19 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
     vm.currentNote  = {};
     vm.currentState = {};
     vm.doPageSave   = true;
+    vm.selectedSection = 'note';
+
+    //Functions
+    vm.addNote              = addNote;
+    vm.setCurrentNote       = setCurrentNote;
+    vm.getPages             = getPages;
+    vm.setCurrentPage       = setCurrentPage;
+    vm.addPage              = vm.addPage;
+    vm.saveCurrentNote      = saveCurrentNote;
+    vm.getNotes             = getNotes;
+    vm.getNoteCurrentState  = getNoteCurrentState;
+    vm.checkPageExist       = checkPageExist;
+    vm.currentActiveSection = currentActiveSection;
 
     //Destroy database
     // NoteService.destroyDb().then(function(response) {
@@ -17,7 +30,7 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
     //     console.log(error);
     // });
 
-    vm.addNote = function() {
+    function addNote() {
         var newNoteCnt = (vm.notes.length + 1);
         var newNote    = {
             _id        : UtilityService.getId(),
@@ -43,12 +56,12 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
         });
     };
 
-    vm.setCurrentNote = function(index, note) {
+    function setCurrentNote(index, note) {
         vm.currentNote  = note;
         vm.selectedNote = index;
     };
 
-    vm.getPages = function(index, note, page_id) {
+    function getPages(index, note, page_id) {
 
         vm.setCurrentNote(index, note);
 
@@ -87,7 +100,7 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
         });
     };
 
-    vm.setCurrentPage = function(index, page) {
+    function setCurrentPage(index, page) {
         vm.doPageSave   = false;
         vm.currentPage  = page;
         vm.selectedPage = index;
@@ -104,7 +117,7 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
         });
     };
 
-    vm.addPage = function() {
+    function addPage() {
         var newPageCnt =  (vm.currentNote.pages.length + 1);
         var newPage = {
             _id        : UtilityService.getId(),
@@ -121,7 +134,7 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
         vm.setCurrentPage(0, newPage);
     };
 
-    vm.saveCurrentNote = function() {
+    function saveCurrentNote() {
         NoteService.saveNote(vm.currentNote).then(function(response){
 
         }, function(err){
@@ -129,7 +142,7 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
         });
     };
 
-    vm.getNotes = function() {
+    function getNotes() {
         NoteService.getNotes().then(function(response) {
             vm.notes = response;
 
@@ -150,7 +163,7 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
     vm.getNotes();
 
 
-    vm.getNoteCurrentState = function() {
+    function getNoteCurrentState() {
         NoteService.getNoteCurrentState().then(function(response) {
             vm.currentState = response;
 
@@ -166,6 +179,19 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
             console.log(error);
         });
     };
+
+    function checkPageExist() {
+        if (!vm.currentNote.pages.length)
+        {
+            vm.addPage();
+        }
+    };
+
+    function currentActiveSection(section) {
+        vm.selectedSection = section;
+        console.log(section);
+    };
+
 
     //Saving page
     var pageTimeout = null;
@@ -192,7 +218,6 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
     };
 
     $scope.$watch('vm.currentPage.content', debounceSavePage);
-    //$scope.$watch('vm.currentNote.title', debounceSaveNote);
 
 }
 
