@@ -84,8 +84,8 @@ body {
     width: 100%;
 }
 
-#left .note-list > p {
-    font-weight: bold;
+.note-list-cont {
+    background-color: #E4E9EF !important;
 }
 #right .note-list > p {
     text-transform: capitalize;
@@ -102,7 +102,7 @@ body {
 }
 
 #right .active {
-    background: #1976d2 !important;
+    background: #49A2E3 !important;
     color: #fff;
 }
 
@@ -115,6 +115,7 @@ body {
     padding: 0px 2px 0px 0px ;
     margin-top: 7px;
     margin-bottom: 7px;
+    background-color: #49A2E3 !important;
 }
 .add_note_btn > i {
     margin: 0;
