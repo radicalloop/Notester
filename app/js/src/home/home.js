@@ -16,7 +16,11 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
     // }, function(error) {
     //     console.log(error);
     // });
-
+    document.onkeydown = function(e) {
+        e = event.key;
+        console.log(e);
+    };
+    
     vm.addNote = function() {
         var newNoteCnt = (vm.notes.length + 1);
         var newNote    = {

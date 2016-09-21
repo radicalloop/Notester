@@ -15,30 +15,6 @@
                         <md-button class="md-icon-button" aria-label="Mail">
                             <i class="material-icons md-21 md-dark md-inactive fright " >&#xE80D;</i>
                         </md-button>
-                        
-                        
-<!--                          <md-fab-speed-dial md-direction="down" class="md-scale share-btn">
-                            <md-fab-trigger>
-                              <md-button class="md-icon-button" aria-label="Share">
-                                <i class="material-icons md-21 md-dark md-inactive fright " >&#xE80D;</i>
-                              </md-button>
-                            </md-fab-trigger>
-
-                            <md-fab-actions>
-                              <md-button aria-label="Twitter" class="md-fab md-raised md-mini">
-                                <i class="material-icons md-21 md-dark md-inactive fright " >twitter</i>
-                              </md-button>
-                              <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
-                                <i class="material-icons md-21 md-dark md-inactive fright " >facebook</i>
-                              </md-button>
-                              <md-button aria-label="Google Hangout" class="md-fab md-raised md-mini">
-                                <i class="material-icons md-21 md-dark md-inactive fright " >google_hangout</i>
-                              </md-button>
-                            </md-fab-actions>
-                          </md-fab-speed-dial>-->
-                        
-                        
-                        
                     </div>
                     <div class="box">
                         <md-button class="md-icon-button" aria-label="Mail">
@@ -58,7 +34,7 @@
 
 <section layout="row" flex class="height-100 m-t-2">
     <div flex="20" layout="column" class="md-whiteframe-1dp" id="right">
-        <md-content class="h-93">
+        <md-content class="h-93 note-list-cont">
             <md-list class="padding-none" id="notes_list" flex>
                 <md-list-item class="sm-1-line" ng-attr-id="{{note._id}}" ng-class="{ 'active': vm.selectedNote == $index}" ng-repeat="note in vm.notes track by $index" note-naming="note" is-new-note="note.isNewNote" save-callback="vm.saveCurrentNote()" ng-click="vm.getPages($index, note);">
                         <div class="md-list-item-text note-list" layout="column">
