@@ -10,13 +10,6 @@ angular
                 isNewNote: '=',
                 saveCallback: '&'
             },
-            // template: [
-            //     '<div class="md-list-item-text note-list" layout="column">',
-            //         '<p class="fleft margin-none" ng-hide="note.editing">{{note.title}}</p>',
-            //         '<input type="text" value="{note.title}" class="note-title" ng-hide="!note.editing" ng-model="note.title" name="note_title[]"  />',
-            //     '</div>',
-            //     '<md-divider></md-divider>'
-            // ].join(''),
             link : function (scope, element, attrs) {
                 var input = angular.element(element[0].querySelector('input[name="note_title[]"]'));
 
@@ -67,7 +60,8 @@ angular
             restrict: 'A', // only activate on element attribute
             require: '?ngModel', // get a hold of NgModelController
             scope: {
-                currentPage: '='
+                currentPage: '=',
+                onFocusCallback: '&'
             },
             getLines: function(lines, upto) {
                 var finalLine = [];
@@ -117,9 +111,15 @@ angular
 
                 ngModel.$render();
 
-                  // Listen for change events to enable binding
+                // Listen for change events to enable binding
                 element.on('blur keyup change', function () {
                     scope.$apply(readViewText);
+                });
+
+                element.on('focus', function () {
+                    scope.$apply(function () {
+                        scope.onFocusCallback();
+                    });
                 });
 
                 // element.on('keypress', function(ev){
