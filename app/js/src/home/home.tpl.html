@@ -32,7 +32,7 @@
             <md-list class="padding-none" id="notes_list" flex>
                 <md-list-item class="sm-1-line"
                     ng-attr-id="{{note._id}}"
-                    ng-class="{ 'active': vm.selectedNote == $index, 'selected': vm.selectedSection === 'note'}" ng-repeat="note in vm.notes track by $index"
+                    ng-class="{ 'active': vm.selectedNote == $index, 'selected': (vm.selectedNote == $index && vm.selectedSection === 'note')}" ng-repeat="note in vm.notes track by $index"
                     note-naming="note"
                     is-new-note="note.isNewNote"
                     save-callback="vm.saveCurrentNote()"
@@ -56,7 +56,7 @@
             <md-list class="padding-none" flex>
                 <md-list-item class="sm-1-line"
                     ng-repeat="page in vm.currentNote.pages | orderBy: 'page.updated_at':true track by $index"
-                    ng-class="{ 'active': vm.selectedPage == $index, 'selected': vm.selectedSection === 'page'}"
+                    ng-class="{ 'active': vm.selectedPage == $index, 'selected': (vm.selectedPage == $index && vm.selectedSection === 'page')}"
                     ng-click="vm.setCurrentPage($index, page);">
                         <div class="md-list-item-text note-list" layout="column">
                             <p class="fleft margin-none">

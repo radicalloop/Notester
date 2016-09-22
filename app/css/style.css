@@ -84,16 +84,25 @@ body {
 .note-title {
     z-index: 9999;
     width: 100%;
-    background: #fff !important;
+    background: #fff;
 }
 
 #right .active {
-    background: #1976d2 !important;
+    background: #1976d2;
     color: #fff;
 }
 
+#right .active.selected {
+    background: #1976d1;
+    color: red;
+}
+
 #left .active {
-    background: #BBDEFB !important;
+    background: #BBDEFB;
+}
+
+#left .active.selected {
+    background: #BBDEFB;
 }
 
 .add_note_btn {
@@ -181,6 +190,10 @@ input[type=text].active {
 }
 .padding-none {
     padding: 0 !important;
+}
+
+.md-whiteframe-1dp {
+    outline: none;
 }
 
 
