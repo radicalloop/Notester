@@ -1,8 +1,16 @@
 function NoteService($http, $q, pouchdb, $rootScope)
 {
-    var noteService = {};
+    var noteService = {
+        getNotes              : getNotes,
+        destroyDb             : destroyDb,
+        saveNote              : saveNote,
+        savePage              : savePage,
+        getPages              : getPages,
+        updateNoteCurrentState: updateNoteCurrentState,
+        getNoteCurrentState   : getNoteCurrentState
+    };
 
-    noteService.getNotes = function() {
+    function getNotes() {
         var deferred = $q.defer();
 
         pouchdb.find({
@@ -27,7 +35,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
         return deferred.promise;
     };
 
-    noteService.destroyDb = function() {
+    function destroyDb() {
         var deferred = $q.defer();
 
         pouchdb.destroy().then(function () {
@@ -41,7 +49,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
         return deferred.promise;
     };
 
-    noteService.saveNote = function(note) {
+    function saveNote(note) {
         var deferred = $q.defer();
 
         pouchdb.put(note).then(function (response) {
@@ -54,7 +62,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
         return deferred.promise;
     };
 
-    noteService.savePage = function(page) {
+    function savePage(page) {
 
         var deferred = $q.defer();
 
@@ -77,7 +85,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
     //     live: true, since: 'now', include_docs: true
     // }).on('change', onDatabaseChange);
 
-    noteService.getPages = function(note_id) {
+    function getPages(note_id) {
         var deferred = $q.defer();
 
         pouchdb.find({
@@ -97,7 +105,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
         return deferred.promise;
     };
 
-    noteService.updateNoteCurrentState = function(currentState) {
+    function updateNoteCurrentState(currentState) {
         var deferred = $q.defer();
 
         pouchdb.put(currentState).then(function (response) {
@@ -110,7 +118,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
         return deferred.promise;
     };
 
-    noteService.getNoteCurrentState = function(currentState) {
+    function getNoteCurrentState(currentState) {
         var deferred = $q.defer();
 
         pouchdb.find({

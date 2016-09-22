@@ -29,7 +29,7 @@ body {
     font-family: verdana;
 }
 
-[contenteditable] { line-height: 1.8; }
+[contenteditable] { line-height: 1.8; white-space:pre-wrap}
 [contenteditable]:focus { outline: 0px solid transparent; }
 
 .material-icons {

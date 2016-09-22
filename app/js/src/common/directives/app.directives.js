@@ -127,6 +127,14 @@ angular
                 //         document.execCommand('formatBlock', false, 'p');
                 // });
 
+                element.on('keydown', function(e){
+                    //detect 'tab' key
+                    if (e.keyCode === 9) { // tab key
+                        document.execCommand('insertHTML', false, '&#009');
+                        e.preventDefault();  // this will prevent us from tabbing out of the editor
+                    }
+                });
+
 
                 // element.on("paste", function(e) {
                 //     console.log('here');
