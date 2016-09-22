@@ -15,7 +15,7 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
     vm.addNote              = addNote;
     vm.setCurrentNote       = setCurrentNote;
     vm.getPages             = getPages;
-    vm.addPage              = vm.addPage;
+    vm.addPage              = addPage;
     vm.setCurrentPage       = setCurrentPage;
     vm.saveCurrentNote      = saveCurrentNote;
     vm.getNotes             = getNotes;
