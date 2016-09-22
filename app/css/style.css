@@ -115,8 +115,7 @@ body {
 }
 
 #right .active.selected {
-    background: #1976d1;
-    color: red;
+    background: #175180;
 }
 
 #left .active {
@@ -124,7 +123,8 @@ body {
 }
 
 #left .active.selected {
-    background: #BBDEFB;
+    background: #7f9ab1;
+    color:#fff;
 }
 
 .add_note_btn {
