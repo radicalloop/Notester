@@ -8,7 +8,8 @@ angular
             scope: {
                 note: '=noteNaming',
                 isNewNote: '=',
-                saveCallback: '&'
+                saveCallback: '&',
+                selectedSection: '='
             },
             link : function (scope, element, attrs) {
                 var input = angular.element(element[0].querySelector('input[name="note_title[]"]'));
@@ -17,6 +18,11 @@ angular
                     $timeout(function() {
                         input[0].focus();
                         input[0].select();
+                    });
+
+
+                    scope.$apply(function () {
+                        scope.selectedSection = false;
                     });
 
                     scope.note.editing = 1;
@@ -40,6 +46,8 @@ angular
 
                             scope.saveCallback();
                             scope.note.editing = 0;
+
+                            scope.selectedSection = 'note';
                         });
 
                         event.preventDefault();
@@ -61,7 +69,8 @@ angular
             require: '?ngModel', // get a hold of NgModelController
             scope: {
                 currentPage: '=',
-                onFocusCallback: '&'
+                onFocusCallback: '&',
+                currentActiveSection: '&activeSectionCallback'
             },
             getLines: function(lines, upto) {
                 var finalLine = [];
@@ -122,6 +131,10 @@ angular
                     });
                 });
 
+                element.on('click', function(e){
+                    e.stopPropagation();
+                });
+
                 // element.on('keypress', function(ev){
                 //     if(ev.keyCode == '13')
                 //         document.execCommand('formatBlock', false, 'p');
@@ -174,11 +187,36 @@ angular
             return {
                 restrict: 'A',
                 link: function() {
-                    $document.bind('keydown', function(e) {
+                    $document.on('keydown', function(e) {
                         $rootScope.$broadcast('keydown', e);
-                        $rootScope.$broadcast('keypress:' + e.which, e);
+                    });
+
+                    $document.on('click', function(e) {
+                        $rootScope.$broadcast('click', e);
                     });
                 }
             };
         }
-    ]);
+    ])
+    .directive('activeSection', function($document) {
+        return {
+            restrict: 'A',
+            scope: {
+                currentActiveSection : '&activeSection'
+            },
+            link: function(scope, element, attrs) {
+
+                $document.on('click', function(e) {
+
+                });
+
+                element.on('click', function(e){
+                    scope.$apply(function () {
+                        scope.currentActiveSection();
+                    });
+
+                    e.stopPropagation();
+                });
+            }
+        };
+    });

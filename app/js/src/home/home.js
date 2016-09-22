@@ -1,6 +1,8 @@
 'use strict';
 
-function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityService)
+const {dialog} = require('electron').remote;
+
+function HomeController($scope, $state, $timeout, $window, $filter, NoteService, UtilityService)
 {
     var vm             = this;
 
@@ -204,6 +206,10 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
         {
             vm.addPage();
         }
+        else
+        {
+            vm.currentActiveSection('editor');
+        }
     }
 
     function currentActiveSection(section) {
@@ -237,13 +243,24 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
     $scope.$watch('vm.currentPage.content', debounceSavePage);
 
     //Watching delete events
-    $scope.$on('keydown', function(onEvent, event) {
+    $scope.$on('click', function(onEvent, event) {
+        vm.selectedSection = false;
+    });
 
+    $scope.$on('keydown', function(onEvent, event) {
         if (event.which === 8 || event.which === 46)
         {
             if (vm.selectedSection === 'page' || vm.selectedSection === 'note')
             {
-                console.log(vm.selectedSection);
+                dialog.showMessageBox({
+                   title: 'Title',
+                   message: 'This is some descriptive message',
+                   buttons: ['Cancel', 'OK'],
+                   cancelId: 0,
+                   defaultId: 1
+                }, function(callback){
+                   console.log(callback);
+                });
             }
         }
     });
