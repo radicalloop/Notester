@@ -208,7 +208,6 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
 
     function currentActiveSection(section) {
         vm.selectedSection = section;
-        console.log(section);
     }
 
     //Saving page
@@ -237,6 +236,17 @@ function HomeController($scope, $state, $timeout, $filter, NoteService, UtilityS
 
     $scope.$watch('vm.currentPage.content', debounceSavePage);
 
+    //Watching delete events
+    $scope.$on('keydown', function(onEvent, event) {
+
+        if (event.which === 8 || event.which === 46)
+        {
+            if (vm.selectedSection === 'page' || vm.selectedSection === 'note')
+            {
+                console.log(vm.selectedSection);
+            }
+        }
+    });
 }
 
 angular
