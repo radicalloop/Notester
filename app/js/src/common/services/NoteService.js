@@ -95,7 +95,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
             selector: {note_id: note_id, updated_at: {$gt: null}, type: 'page'},
             sort: [{updated_at: 'desc'}]
         }).then(function (result) {
-            console.log(result);
+
             var pages = result.docs.map(function(r) {
                 return r;
             });
@@ -153,7 +153,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
             include_docs : true
         }).then(function (result) {
 
-            console.log(result);
+            //console.log(result);
 
             var results = result.rows.map(function(r) {
                  return r.doc;

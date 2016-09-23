@@ -51,15 +51,15 @@ function PouchdbService()
       // ouch, an error
     });
 
-    getAllIndexes = function() {
+    var getAllIndexes = function() {
         pouchdb.getIndexes().then(function (result) {
             console.log(result);
         }).catch(function (err) {
           // ouch, an error
         });
-    }
+    };
 
-    deleteAllIndexes = function() {
+    var deleteAllIndexes = function() {
         pouchdb.getIndexes().then(function (result) {
             for (index_result in result.indexes) {
                 pouchdb.deleteIndex(result.indexes[index_result]).then(function (result) {
@@ -72,7 +72,7 @@ function PouchdbService()
         }).catch(function (err) {
           // ouch, an error
         });
-    }
+    };
 
     // TO DELETE ALL INDEXES, UNCOMMENT FOLLOWING LINE
     //deleteAllIndexes();
@@ -80,7 +80,7 @@ function PouchdbService()
     // TO GET / VIEW ALL INDEXES, UNCOMMENT FOLLOWING LINE
     //getAllIndexes();
 
-    PouchDB.debug.enable('pouchdb:find');
+    //PouchDB.debug.enable('pouchdb:find');
 
     return pouchdb;
 }
