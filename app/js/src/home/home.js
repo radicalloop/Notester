@@ -12,6 +12,7 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
     vm.currentState    = {};
     vm.doPageSave      = true;
     vm.selectedSection = 'note';
+    vm.searchTerm      = 'test';
 
     //Functions
     vm.addNote              = addNote;
@@ -104,6 +105,10 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
                     var finalIndex = _getPageIndex(lastSelectedPage, true);
 
                     vm.setCurrentPage(finalIndex, lastSelectedPage);
+
+                    $timeout(function(){
+                       $scope.$broadcast('pagescroll_' + page_id);
+                    });
                 }
             }
 
@@ -205,9 +210,15 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
             vm.setCurrentNote(indexLastSelectedNote, lastSelectedNote);
             vm.getPages(indexLastSelectedNote, lastSelectedNote, vm.currentState.current_page);
 
+            scrollToNote();
+
         }, function(error) {
             console.log(error);
         });
+    }
+
+    function scrollToNote() {
+        document.getElementById(vm.currentNote._id).scrollIntoView();
     }
 
     function checkPageExist() {
