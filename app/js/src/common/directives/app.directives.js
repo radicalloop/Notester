@@ -166,4 +166,27 @@ angular
                 }
             }
         };
+    })
+    .directive('scrollToPage', function ($timeout) {
+        return {
+            restrict : "A",
+            scope : {
+                page_id: '=scrollToPage',
+            },
+            link: function (scope, element) {
+                scope.$on('pagescroll_' + scope.page_id, function (event, data) {
+                    $timeout(function () { // You might need this timeout to be sure its run after DOM render.
+                        element[0].scrollIntoView();
+                    }, 0, false);
+                });
+            }
+        };
+    })
+    .directive('searchAndShow', function () {
+        return {
+            restrict : "A",
+            link: function (scope, element) {
+                console.log(scope.vm.searchTerm);
+            }
+        };
     });

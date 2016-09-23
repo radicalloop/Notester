@@ -25,7 +25,8 @@
             </div>
             <div class="col-sm-4 icones">
                 <input type="text" name="search" placeholder="Search..." class="search"
-                       ng-class="{active : clicked === 1}" ng-focus="clicked = 1" ng-blur="clicked = 0" >
+                       ng-class="{active : clicked === 1}" ng-focus="clicked = 1" ng-blur="clicked = 0"
+                       ng-model="vm.searchTerm" search-and-show>
                 <i class="material-icons md-28 md-dark md-inactive fright note-list-settings" >&#xE8B6;</i>
             </div>
         </div>
@@ -64,7 +65,7 @@
                 <md-list-item class="sm-1-line"
                     ng-repeat="page in vm.currentNote.pages | orderBy: 'page.updated_at':true track by $index"
                     ng-class="{ 'active': vm.selectedPage == $index, 'selected': (vm.selectedPage == $index && vm.selectedSection === 'page')}"
-                    ng-click="vm.setCurrentPage($index, page);">
+                    ng-click="vm.setCurrentPage($index, page);" scroll-to-page="page._id">
                         <div class="md-list-item-text note-list" layout="column">
                             <p class="fleft margin-none">
                                 {{page.title}}
