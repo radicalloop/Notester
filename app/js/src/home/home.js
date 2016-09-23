@@ -103,7 +103,7 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
                 if (lastSelectedPage)
                 {
                     setDefaultPage = false;
-                    var finalIndex = _getPageIndex(lastSelectedPage);
+                    var finalIndex = _getPageIndex(lastSelectedPage, true);
 
                     vm.setCurrentPage(finalIndex, lastSelectedPage);
 
@@ -125,9 +125,18 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
         return $filter('filter')(vm.currentNote.pages, {_id: page_id})[0];
     }
 
-    function _getPageIndex(page) {
-        var pageIndex  = vm.currentNote.pages.indexOf(page);
-        var finalIndex = (vm.currentNote.pages.length -1) - pageIndex;
+    function _getPageIndex(page, reverse) {
+        reverse = reverse || false;
+
+        if (reverse)
+        {
+            var pageIndex  = vm.currentNote.pages.indexOf(page);
+            var finalIndex = (vm.currentNote.pages.length -1) - pageIndex;
+        }
+        else
+        {
+            var finalIndex  = vm.currentNote.pages.indexOf(page);
+        }
 
         return finalIndex;
     }
@@ -273,16 +282,94 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
     $scope.$on('keydown', function(onEvent, event) {
         if (event.which === 8 || event.which === 46)
         {
-            if (vm.selectedSection === 'page' || vm.selectedSection === 'note')
+            if (vm.selectedSection === 'page')
             {
                 dialog.showMessageBox({
-                   title: 'Title',
-                   message: 'This is some descriptive message',
-                   buttons: ['Cancel', 'OK'],
-                   cancelId: 0,
-                   defaultId: 1
+                    title     : 'Notester',
+                    message   : 'Are you sure you want to delete this Page?',
+                    buttons   : ['Cancel', 'OK'],
+                    cancelId  : 0,
+                    defaultId : 1
+                }, function(response){
+
+                    if(response)
+                    {
+                        var pageIndex = _getPageIndex(vm.currentPage);
+
+                        NoteService.deletePage(vm.currentPage).then(function(response) {
+
+                            delete vm.currentNote.pages[pageIndex];
+                            vm.currentNote.pages.splice(pageIndex, 1);
+
+                            // var currPageIndex = _getPageIndex(vm.currentPage);
+                            // var currRealIndex = _getPageIndex(vm.currentPage, true);
+
+
+
+                            // pageIndex = pageIndex - 1;
+                            // var page;
+
+                            // if(vm.currentNote.pages[realIndex])
+                            // {
+                            //     page      = vm.currentNote.pages[pageIndex];
+                            //     pageIndex = realIndex;
+                            // }
+                            // else
+                            // {
+                            //     pageIndex = vm.currentNote.pages.length - 1;
+                            //     page      = vm.currentNote.pages[pageIndex];
+                            //     pageIndex = 0;
+                            // }
+
+                            // vm.setCurrentPage(pageIndex, page);
+
+                            // var nextPage = vm.currentNote.pages[vm.selectedPage];
+
+                            // console.log(nextPage);
+                            // console.log(vm.selectedPage);
+
+                            // vm.setCurrentPage(vm.selectedPage, nextPage);
+
+
+                            // if (vm.currentNote.pages)
+                            // {
+                            //     var nextPage = vm.currentNote.pages[pageIndex];
+
+                            //     if (nextPage)
+                            //     {
+                            //         var nextPageIndex = _getPageIndex(nextPage, true);
+
+                            //         if (nextPageIndex)
+                            //         {
+                            //             vm.setCurrentPage(nextPageIndex, nextPage);
+                            //         }
+                            //         else
+                            //         {
+                            //             vm.setCurrentPage(0, vm.currentNote.pages[0]);
+                            //         }
+                            //     }
+                            // }
+                        }, function(err) {
+                            console.log(err);
+                        });
+                    }
+                });
+            }
+            else if(vm.selectedSection === 'note')
+            {
+                dialog.showMessageBox({
+                    title: 'Notester',
+                    message: 'Are you sure you want to delete this Note?',
+                    detail: 'All pages of this Note will be deleted.',
+                    buttons: ['Cancel', 'OK'],
+                    cancelId: 0,
+                    defaultId: 1
                 }, function(callback){
-                   console.log(callback);
+
+                    if(callback == 1)
+                    {
+                        NoteService.deleteNote(vm.currentNote);
+                    }
                 });
             }
         }
