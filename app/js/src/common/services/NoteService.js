@@ -8,7 +8,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
         getPages              : getPages,
         updateNoteCurrentState: updateNoteCurrentState,
         getNoteCurrentState   : getNoteCurrentState,
-        searchPages           : searchPages
+        searchPages           : searchPages,
         deletePage            : deletePage,
         deleteNote            : deleteNote
     };
