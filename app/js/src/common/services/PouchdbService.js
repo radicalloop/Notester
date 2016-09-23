@@ -40,6 +40,17 @@ function PouchdbService()
       // ouch, an error
     });
 
+    pouchdb.createIndex({
+        index: {
+            fields : ['updated_at'],
+            name   : 'updated_at_index'
+        }
+    }).then(function (result) {
+      // yo, a result
+    }).catch(function (err) {
+      // ouch, an error
+    });
+
     getAllIndexes = function() {
         pouchdb.getIndexes().then(function (result) {
             console.log(result);

@@ -64,7 +64,7 @@
         <md-content class="h-93">
             <md-list class="padding-none" flex>
                 <md-list-item class="sm-1-line"
-                    ng-repeat="page in vm.currentNote.pages | orderBy: 'page.updated_at':true track by $index"
+                    ng-repeat="page in vm.currentNote.pages track by $index"
                     ng-class="{ 'active': vm.selectedPage == $index, 'selected': (vm.selectedPage == $index && vm.selectedSection === 'page')}"
                     ng-click="vm.setCurrentPage($index, page);" scroll-to-page="page._id">
                         <div class="md-list-item-text note-list" layout="column">

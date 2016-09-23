@@ -91,9 +91,9 @@ function NoteService($http, $q, pouchdb, $rootScope)
 
         pouchdb.find({
             selector: {note_id: note_id, updated_at: {$gt: null}, type: 'page'},
-            //sort: [{updated_at: 'desc'}]
+            sort: [{updated_at: 'desc'}]
         }).then(function (result) {
-            //console.log(result);
+            console.log(result);
             var pages = result.docs.map(function(r) {
                 return r;
             });
@@ -145,11 +145,36 @@ function NoteService($http, $q, pouchdb, $rootScope)
     function searchPages(searchTerm) {
         var deferred = $q.defer();
 
-        pouchdb.search({
+        pouchdb.query(searchMap, {
+            startkey     : searchTerm,
+            endkey       : searchTerm + '\uFFFF',
+            include_docs : true
+        }).then(function (result) {
+
+            console.log(result);
+
+            var results = result.rows.map(function(r) {
+                 return r.doc;
+            });
+
+            deferred.resolve(results);
+
+            // handle result
+        }).catch(function (err) {
+            // handle errors
+            deferred.reject(err);
+        });
+
+        function searchMap(doc) {
+            if (doc.type === 'page') {
+                emit(doc.content);
+            }
+        }
+
+        /*pouchdb.search({
             query       : searchTerm,
             fields      : ['content'],
             include_docs: true,
-            mm          : '0%',
             filter      : function (doc) {
                 return doc.type === 'page';
             }
@@ -163,7 +188,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
 
         }).catch(function (err) {
             deferred.reject(err);
-        });
+        });*/
 
         return deferred.promise;
     }
