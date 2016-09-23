@@ -7,7 +7,9 @@ function NoteService($http, $q, pouchdb, $rootScope)
         savePage              : savePage,
         getPages              : getPages,
         updateNoteCurrentState: updateNoteCurrentState,
-        getNoteCurrentState   : getNoteCurrentState
+        getNoteCurrentState   : getNoteCurrentState,
+        deletePage            : deletePage,
+        deleteNote            : deleteNote
     };
 
     function getNotes() {
@@ -33,7 +35,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
         });
 
         return deferred.promise;
-    };
+    }
 
     function destroyDb() {
         var deferred = $q.defer();
@@ -60,7 +62,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
         });
 
         return deferred.promise;
-    };
+    }
 
     function savePage(page) {
 
@@ -74,7 +76,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
         });
 
         return deferred.promise;
-    };
+    }
 
     // function onDatabaseChange(change) {
     //     console.log('changed-->');
@@ -103,7 +105,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
         });
 
         return deferred.promise;
-    };
+    }
 
     function updateNoteCurrentState(currentState) {
         var deferred = $q.defer();
@@ -116,7 +118,7 @@ function NoteService($http, $q, pouchdb, $rootScope)
         });
 
         return deferred.promise;
-    };
+    }
 
     function getNoteCurrentState(currentState) {
         var deferred = $q.defer();
@@ -140,7 +142,31 @@ function NoteService($http, $q, pouchdb, $rootScope)
         });
 
         return deferred.promise;
-    };
+    }
+
+    function deletePage(currentPage){
+        var deferred = $q.defer();
+
+        pouchdb.remove(currentPage).then(function (response) {
+            deferred.resolve(response);
+        }).catch(function (err) {
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+    }
+
+    function deleteNote(currentNote) {
+        var deferred = $q.defer();
+
+        pouchdb.remove(currentNote).then(function (response) {
+            deferred.resolve(response);
+        }).catch(function (err) {
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+    }
 
     return noteService;
 }
