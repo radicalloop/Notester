@@ -69,6 +69,8 @@ function PouchdbService()
     // TO GET / VIEW ALL INDEXES, UNCOMMENT FOLLOWING LINE
     //getAllIndexes();
 
+    PouchDB.debug.enable('pouchdb:find');
+
     return pouchdb;
 }
 

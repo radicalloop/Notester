@@ -167,7 +167,6 @@ input[type=text].search {
 input[type=text].active {
     outline: none;
     border-bottom: 2px solid #bfbfbf;
-    animation: mymove 5s ;
     width: 80%;
     border-bottom: 2px solid #01579b;
 }
@@ -270,8 +269,8 @@ input[type=text].active {
     background-image: -moz-radial-gradient(closest-corner,rgba(16,47,70,0) 60%,rgba(16,47,70,0.2)),-moz-linear-gradient(108deg,#e5e9bf 10%,#00396f 90%);
     background-image: -ms-radial-gradient(closest-corner,rgba(16,47,70,0) 60%,rgba(16,47,70,0.2)),-ms-linear-gradient(108deg,#e5e9bf 10%,#00396f 90%);
     background-size: cover;
-    
-    
+
+
     animation: welcome 10s ease;
     visibility: hidden;
     height:0;
@@ -283,7 +282,7 @@ input[type=text].active {
     }
     100% {
         height:100%;
-        
+
     }
 }
 .welcome > .container{
@@ -325,11 +324,11 @@ input[type=text].active {
 }
 
 @media only screen and (max-width: 800px){
-    .welcome .content { font-size:10px; }  
+    .welcome .content { font-size:10px; }
 }
 
 @media only screen and (max-width: 400px){
-   .welcome .content { font-size:5px; }  
+   .welcome .content { font-size:5px; }
 }
 
 .welcome .main h2 {

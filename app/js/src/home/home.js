@@ -12,19 +12,20 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
     vm.currentState    = {};
     vm.doPageSave      = true;
     vm.selectedSection = 'note';
-    vm.searchTerm      = 'test';
+    vm.searchTerm      = '';
 
     //Functions
-    vm.addNote              = addNote;
-    vm.setCurrentNote       = setCurrentNote;
-    vm.getPages             = getPages;
-    vm.addPage              = addPage;
-    vm.setCurrentPage       = setCurrentPage;
-    vm.saveCurrentNote      = saveCurrentNote;
-    vm.getNotes             = getNotes;
-    vm.getNoteCurrentState  = getNoteCurrentState;
-    vm.checkPageExist       = checkPageExist;
-    vm.currentActiveSection = currentActiveSection;
+    vm.addNote                   = addNote;
+    vm.setCurrentNote            = setCurrentNote;
+    vm.getPages                  = getPages;
+    vm.addPage                   = addPage;
+    vm.setCurrentPage            = setCurrentPage;
+    vm.saveCurrentNote           = saveCurrentNote;
+    vm.getNotes                  = getNotes;
+    vm.getNoteCurrentState       = getNoteCurrentState;
+    vm.checkPageExist            = checkPageExist;
+    vm.currentActiveSection      = currentActiveSection;
+    vm.searchPages               = searchPages;
 
     //Destroy database
     function _destroyDb() {
@@ -210,6 +211,17 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
 
     function scrollToNote() {
         document.getElementById(vm.currentNote._id).scrollIntoView();
+    }
+
+    function searchPages() {
+        NoteService.searchPages(vm.searchTerm).then(function(response){
+            console.log(response);
+
+            vm.currentNote.pages = response;
+
+        }, function(err){
+            console.log('Error Searching ' + err);
+        });
     }
 
     function checkPageExist() {

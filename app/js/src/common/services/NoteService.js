@@ -7,7 +7,8 @@ function NoteService($http, $q, pouchdb, $rootScope)
         savePage              : savePage,
         getPages              : getPages,
         updateNoteCurrentState: updateNoteCurrentState,
-        getNoteCurrentState   : getNoteCurrentState
+        getNoteCurrentState   : getNoteCurrentState,
+        searchPages           : searchPages
     };
 
     function getNotes() {
@@ -140,6 +141,32 @@ function NoteService($http, $q, pouchdb, $rootScope)
 
         return deferred.promise;
     };
+
+    function searchPages(searchTerm) {
+        var deferred = $q.defer();
+
+        pouchdb.search({
+            query       : searchTerm,
+            fields      : ['content'],
+            include_docs: true,
+            mm          : '0%',
+            filter      : function (doc) {
+                return doc.type === 'page';
+            }
+        }).then(function (res) {
+
+            var results = res.rows.map(function(r) {
+                 return r.doc;
+            });
+
+            deferred.resolve(results);
+
+        }).catch(function (err) {
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+    }
 
     return noteService;
 }

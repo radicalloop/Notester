@@ -26,7 +26,7 @@
             <div class="col-sm-4 icones">
                 <input type="text" name="search" placeholder="Search..." class="search"
                        ng-class="{active : clicked === 1}" ng-focus="clicked = 1" ng-blur="clicked = 0"
-                       ng-model="vm.searchTerm" search-and-show>
+                       ng-model="vm.searchTerm" ng-keyup="vm.searchPages();">
                 <i class="material-icons md-28 md-dark md-inactive fright note-list-settings" >&#xE8B6;</i>
             </div>
         </div>

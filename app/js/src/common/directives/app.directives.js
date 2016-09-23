@@ -195,14 +195,6 @@ angular
             }
         };
     })
-    .directive('searchAndShow', function () {
-        return {
-            restrict : "A",
-            link: function (scope, element) {
-                console.log(scope.vm.searchTerm);
-            }
-        };
-    })
     .directive('keypressEvents', [
         '$document',
         '$rootScope',
