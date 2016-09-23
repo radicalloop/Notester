@@ -34,7 +34,7 @@
 </section>
 
 <section layout="row" flex class="height-100 m-t-2">
-    <div flex="20" layout="column" class="md-whiteframe-1dp" id="right" ng-click="vm.currentActiveSection('note');">
+    <div flex="20" layout="column" class="md-whiteframe-1dp" id="right" active-section="vm.currentActiveSection('note')">
         <md-content class="h-93 note-list-cont">
 
             <md-list class="padding-none" id="notes_list" flex>
@@ -44,10 +44,11 @@
                     note-naming="note"
                     is-new-note="note.isNewNote"
                     save-callback="vm.saveCurrentNote()"
+                    selected-section="vm.selectedSection"
                     ng-click="vm.getPages($index, note);">
                         <div class="md-list-item-text note-list" layout="column">
                             <p class="fleft margin-none" ng-hide="note.editing">{{note.title}}</p>
-                            <input type="text" value="{note.title}" class="note-title" ng-hide="!note.editing" ng-model="note.title" name="note_title[]"  />
+                            <input type="text" value="{note.title}" class="note-title" ng-hide="!note.editing" ng-model="note.title" name="note_title[]" />
                         </div>
                         <md-divider></md-divider>
                 </md-list-item>
@@ -59,7 +60,7 @@
         </md-button>
     </div>
     <div>&nbsp;</div>
-    <div flex="20" layout="column" class="md-whiteframe-1dp" id="left" ng-click="vm.currentActiveSection('page');" active-section="page">
+    <div flex="20" layout="column" class="md-whiteframe-1dp" id="left" active-section="vm.currentActiveSection('page')">
         <md-content class="h-93">
             <md-list class="padding-none" flex>
                 <md-list-item class="sm-1-line"
@@ -88,8 +89,7 @@
             strip-br="true"
             current-page="vm.currentPage"
             on-focus-callback="vm.checkPageExist()"
-            ng-model="vm.currentPage.content"
-            ng-click="vm.currentActiveSection('editor');">
+            ng-model="vm.currentPage.content">
             {{vm.currentPage.content}}
     </div>
 </section>
