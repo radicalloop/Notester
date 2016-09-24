@@ -171,7 +171,7 @@ angular
                     }
 
                     $timeout(function() {
-                        scope.currentPage.title = that.getTitle(html);
+                        scope.currentPage.title = that.getTitle(element.html());
                         scope.$apply();
                     });
 
