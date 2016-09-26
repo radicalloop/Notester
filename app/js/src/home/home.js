@@ -115,8 +115,8 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
 
             if (setDefaultPage)
             {
-                var lastPage = vm.currentNote.pages[vm.currentNote.pages.length - 1];
-                vm.setCurrentPage(0, lastPage);
+                var firstPage = vm.currentNote.pages[0];
+                vm.setCurrentPage(0, firstPage);
             }
         }
     }
@@ -131,6 +131,12 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
 
     function _getPageIndex(page) {
         var finalIndex  = vm.currentNote.pages.indexOf(page);
+
+        return finalIndex;
+    }
+
+    function _getNoteIndex(note) {
+        var finalIndex  = vm.notes.indexOf(note);
 
         return finalIndex;
     }
@@ -246,13 +252,40 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
     }
 
     function searchPages() {
-        NoteService.searchPages(vm.searchTerm).then(function(response){
-            vm.currentNote.pages = response;
+        if (vm.searchTerm)
+        {
+            NoteService.searchPages(vm.searchTerm).then(function(response){
+                vm.currentNote.pages = response;
 
-        }, function(err){
-            console.log('Error Searching ' + err);
-        });
+                if (response.length)
+                {
+                    var firstPage = vm.currentNote.pages[0];
+                    vm.setCurrentPage(0, firstPage);
+                }
+            }, function(err){
+                console.log('Error Searching ' + err);
+            });
+        }
+        else if (vm.notes.length)
+        {
+            var currentNoteIndex = _getNoteIndex(vm.currentNote);
+            vm.getPages(currentNoteIndex, vm.currentNote);
+        }
     }
+
+    var searchTimeout = null;
+    var debounceSearch = function(newVal, oldVal) {
+        if (newVal != oldVal) {
+            if (searchTimeout) {
+                $timeout.cancel(searchTimeout);
+            }
+
+            searchTimeout = $timeout(searchPages, 500);  // 1000 = 1 second
+        }
+    };
+
+    $scope.$watch('vm.searchTerm', debounceSearch);
+
 
     function checkPageExist() {
         if (!vm.currentNote.pages.length)

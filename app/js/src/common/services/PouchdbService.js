@@ -51,6 +51,17 @@ function PouchdbService()
       // ouch, an error
     });
 
+    pouchdb.createIndex({
+        index: {
+            fields : ['content'],
+            name   : 'content_index'
+        }
+    }).then(function (result) {
+      // yo, a result
+    }).catch(function (err) {
+      // ouch, an error
+    });
+
     var getAllIndexes = function() {
         pouchdb.getIndexes().then(function (result) {
             console.log(result);

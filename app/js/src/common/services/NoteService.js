@@ -147,14 +147,14 @@ function NoteService($http, $q, pouchdb, $rootScope)
     function searchPages(searchTerm) {
         var deferred = $q.defer();
 
+        var that        = this;
+        that.searchTerm = searchTerm;
+
         pouchdb.query(searchMap, {
-            startkey     : searchTerm,
-            endkey       : searchTerm + '\uFFFF',
+            //key     : searchTerm,
+            //endkey  : searchTerm + '\uFFFF',
             include_docs : true
         }).then(function (result) {
-
-            //console.log(result);
-
             var results = result.rows.map(function(r) {
                  return r.doc;
             });
@@ -168,7 +168,10 @@ function NoteService($http, $q, pouchdb, $rootScope)
         });
 
         function searchMap(doc) {
-            if (doc.type === 'page') {
+            var searchkey = document.getElementById('q').value.replace(/[$-\/?[-^{|}]/g, '\\$&');
+            var regex     = new RegExp(searchkey,'i');
+
+            if (doc.type === 'page' && doc.content.match(regex)) {
                 emit(doc.content);
             }
         }
