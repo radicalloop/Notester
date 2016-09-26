@@ -38,7 +38,7 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
         });
     }
 
-    // _destroyDb();
+    //_destroyDb();
 
     //Initialize here.
     function init() {
