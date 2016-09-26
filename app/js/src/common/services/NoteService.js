@@ -168,12 +168,42 @@ function NoteService($http, $q, pouchdb, $rootScope)
         });
 
         function searchMap(doc) {
-            var searchkey = document.getElementById('q').value.replace(/[$-\/?[-^{|}]/g, '\\$&');
-            var regex     = new RegExp(searchkey,'i');
 
-            if (doc.type === 'page' && doc.content.match(regex)) {
-                emit(doc.content);
+            var isContentMatched = function(content, keyword) {
+                var searchkey = keyword.trim().replace(/[$-\/?[-^{|}]/g, '\\$&');
+                var regex     = new RegExp(searchkey,'i');
+
+                return content.match(regex);
             }
+
+            var docContent = doc.plain_content || false;
+
+            if (docContent)
+            {
+                var keywords  = document.getElementById('search_term').value.trim().split(" ");
+
+                var contentMatched = true;
+                for(var k=0; k < keywords.length; k++)
+                {
+                    if (!isContentMatched(docContent, keywords[k]))
+                    {
+                        contentMatched = false;
+                        break;
+                    }
+                }
+
+                if (!contentMatched) {
+                    var keyword = keywords.join("");
+
+                    contentMatched = isContentMatched(docContent, keyword);
+                }
+
+                if (doc.type === 'page' && contentMatched) {
+                    emit(docContent);
+                }
+            }
+
+
         }
 
         /*pouchdb.search({

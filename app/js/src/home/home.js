@@ -15,17 +15,17 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
     vm.searchTerm      = '';
 
     //Functions
-    vm.addNote                   = addNote;
-    vm.setCurrentNote            = setCurrentNote;
-    vm.getPages                  = getPages;
-    vm.addPage                   = addPage;
-    vm.setCurrentPage            = setCurrentPage;
-    vm.saveCurrentNote           = saveCurrentNote;
-    vm.getNotes                  = getNotes;
-    vm.getNoteCurrentState       = getNoteCurrentState;
-    vm.checkPageExist            = checkPageExist;
-    vm.currentActiveSection      = currentActiveSection;
-    vm.searchPages               = searchPages;
+    vm.addNote              = addNote;
+    vm.setCurrentNote       = setCurrentNote;
+    vm.getPages             = getPages;
+    vm.addPage              = addPage;
+    vm.setCurrentPage       = setCurrentPage;
+    vm.saveCurrentNote      = saveCurrentNote;
+    vm.getNotes             = getNotes;
+    vm.getNoteCurrentState  = getNoteCurrentState;
+    vm.checkPageExist       = checkPageExist;
+    vm.currentActiveSection = currentActiveSection;
+    vm.searchPages          = searchPages;
 
     //Destroy database
     function _destroyDb() {
@@ -36,7 +36,7 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
         });
     }
 
-    //_destroyDb();
+    // _destroyDb();
 
     //Initialize here.
     function init() {
@@ -77,6 +77,8 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
     }
 
     function getPages(index, note, page_id) {
+        vm.hideEditor  = false;
+        vm.searchTerm  = '';
 
         vm.setCurrentNote(index, note);
 
@@ -252,8 +254,11 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
     }
 
     function searchPages() {
+        vm.hideEditor = false;
+
         if (vm.searchTerm)
         {
+            console.log('called..search');
             NoteService.searchPages(vm.searchTerm).then(function(response){
                 vm.currentNote.pages = response;
 
@@ -261,6 +266,10 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
                 {
                     var firstPage = vm.currentNote.pages[0];
                     vm.setCurrentPage(0, firstPage);
+                }
+                else
+                {
+                    vm.hideEditor = true;
                 }
             }, function(err){
                 console.log('Error Searching ' + err);
@@ -307,7 +316,8 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
     var savePage = function() {
         if (vm.currentPage)
         {
-            vm.currentPage.updated_at = new Date().getTime();
+            vm.currentPage.updated_at    = new Date().getTime();
+            vm.currentPage.plain_content = vm.currentPage.content.replace(/(<([^>]+)>)/ig,"");
 
             delete vm.currentPage.saved;
 
