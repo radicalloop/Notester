@@ -4,30 +4,34 @@
             <div class="col-sm-4 logo">
                 <h1 class="anview-logo">Notester</h1>
             </div>
-            <div class="col-sm-4 text-center icones row">
+            <div class="col-sm-4 text-center icones row ">
                 <div class="icones-wapper">
-                    <div class="box">
-                        <md-button class="md-icon-button" aria-label="Mail">
-                            <i class="material-icons md-21 md-dark md-inactive fright " >&#xE0BE;</i>
+                    <div class="box" ng-click="vm.addPage();" >
+                        <md-button class="md-icon-button header-icones" aria-label="add page">
+                            <i class="material-icons md-27 md-dark fright " >add_circle</i>
                         </md-button>
                     </div>
-                    <div class="box">
-                        <md-button class="md-icon-button" aria-label="Mail">
-                            <i class="material-icons md-21 md-dark md-inactive fright " >&#xE80D;</i>
+                    <div class="box" ng-click="vm.deleteNoteOrPage();">
+                        <md-button class="md-icon-button header-icones" aria-label="Delete">
+                            <i class="material-icons md-27 md-dark fright " >&#xE872;</i>
                         </md-button>
                     </div>
-                    <div class="box">
-                        <md-button class="md-icon-button" aria-label="Mail">
-                            <i class="material-icons md-21 md-dark md-inactive fright " >&#xE8AD;</i>
+                    <div class="box" ng-click="vm.printPage();" >
+                        <md-button class="md-icon-button header-icones" aria-label="Print" >
+                            <i class="material-icons md-27 md-dark fright " >&#xE8AD;</i>
                         </md-button>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 icones">
-                <input type="text" name="search" id="search_term" placeholder="Search..." class="search"
-                       ng-class="{active : clicked === 1}" ng-focus="clicked = 1" ng-blur="clicked = 0"
-                       ng-model="vm.searchTerm">
-                <i class="material-icons md-28 md-dark md-inactive fright note-list-settings" >&#xE8B6;</i>
+            <div class="col-sm-4 text-center icones row">
+                <div class="icones-wapper">
+                    <div class="box width-100 search-box">
+                        <input type="text" name="search" id="search_term" placeholder="Search..." class="search"
+                               ng-class="{active : clicked === 1}" ng-focus="clicked = 1" ng-blur="clicked = 0"
+                               ng-model="vm.searchTerm">
+                        <i class="material-icons md-28 md-dark fright note-list-settings" >&#xE8B6;</i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -36,21 +40,21 @@
 <section layout="row" flex class="height-100 m-t-2">
     <div flex="20" layout="column" class="md-whiteframe-1dp" id="right" active-section="vm.currentActiveSection('note')">
         <md-content class="h-93 note-list-cont">
-
             <md-list class="padding-none" id="notes_list" flex>
                 <md-list-item class="sm-1-line"
-                    ng-attr-id="{{note._id}}"
-                    ng-class="{ 'active': vm.selectedNote == $index, 'selected': (vm.selectedNote == $index && vm.selectedSection === 'note')}" ng-repeat="note in vm.notes track by $index"
-                    note-naming="note"
-                    is-new-note="note.isNewNote"
-                    save-callback="vm.saveCurrentNote()"
-                    selected-section="vm.selectedSection"
-                    ng-click="vm.getPages($index, note);">
-                        <div class="md-list-item-text note-list" layout="column">
-                            <p class="fleft margin-none" ng-hide="note.editing">{{note.title}}</p>
-                            <input type="text" value="{note.title}" class="note-title" ng-hide="!note.editing" ng-model="note.title" name="note_title[]" />
-                        </div>
-                        <md-divider></md-divider>
+                              ng-attr-id="{{note._id}}"
+                              ng-class="{ 'active': vm.selectedNote == $index, 'selected': (vm.selectedNote == $index && vm.selectedSection === 'note')}"
+                              ng-repeat="note in vm.notes track by $index"
+                              note-naming="note"
+                              is-new-note="note.isNewNote"
+                              save-callback="vm.saveCurrentNote()"
+                              selected-section="vm.selectedSection"
+                              ng-click="vm.getPages($index, note);">
+                    <div class="md-list-item-text note-list" layout="column">
+                        <p class="fleft margin-none" ng-hide="note.editing">{{note.title}}</p>
+                        <input type="text" value="{note.title}" class="note-title" ng-hide="!note.editing" ng-model="note.title" name="note_title[]" />
+                    </div>
+                    <md-divider></md-divider>
                 </md-list-item>
             </md-list>
         </md-content>
@@ -64,33 +68,33 @@
         <md-content class="h-93">
             <md-list class="padding-none" flex>
                 <md-list-item class="sm-1-line"
-                    ng-repeat="page in vm.currentNote.pages track by $index"
-                    ng-class="{ 'active': vm.selectedPage == $index, 'selected': (vm.selectedPage == $index && vm.selectedSection === 'page')}"
-                    ng-click="vm.setCurrentPage($index, page);" scroll-to-page="page._id">
-                        <div class="md-list-item-text note-list" layout="column">
-                            <p class="fleft margin-none">
-                                {{page.title}}
-                            </p>
-                            <small>{{page.updated_at | date: "MMM d, y h:mm a"}}</small>
-                        </div>
-                        <md-divider></md-divider>
+                              ng-repeat="page in vm.currentNote.pages track by $index"
+                              ng-class="{ 'active': vm.selectedPage == $index, 'selected': (vm.selectedPage == $index && vm.selectedSection === 'page')}"
+                              ng-click="vm.setCurrentPage($index, page);" scroll-to-page="page._id">
+                    <div class="md-list-item-text note-list" layout="column">
+                        <p class="fleft margin-none">
+                            {{page.title}}
+                        </p>
+                        <small>{{page.updated_at| date: "MMM d, y h:mm a"}}</small>
+                    </div>
+                    <md-divider></md-divider>
                 </md-list-item>
             </md-list>
         </md-content>
         <md-divider></md-divider>
-        <md-button class="md-fab md-mini md-primary add_note_btn" ng-click="vm.addPage();" aria-label="New Note">
+        <md-button class="md-fab md-mini md-primary add_note_btn" ng-disabled="!vm.notes.length" ng-click="vm.addPage();" aria-label="New Note">
             <i class="material-icons md-36 md-inactive fright note-list-settings" >add</i>
         </md-button>
     </div>
     <div>&nbsp;</div>
     <div flex="60" layout="column" class="md-whiteframe-1dp overflow-y md-padding"
-            contenteditable id="page_content"
-            contenteditable="true"
-            strip-br="true"
-            current-page="vm.currentPage"
-            on-focus-callback="vm.checkPageExist()"
-            ng-model="vm.currentPage.content"
-            ng-hide="vm.hideEditor">
-            {{vm.currentPage.content}}
+         contenteditable id="page_content"
+         contenteditable="true"
+         strip-br="true"
+         current-page="vm.currentPage"
+         on-focus-callback="vm.checkPageExist()"
+         ng-model="vm.currentPage.content"
+         ng-hide="!vm.notes.length || vm.hideEditor">
+        {{vm.currentPage.content}}
     </div>
 </section>

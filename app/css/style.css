@@ -33,7 +33,7 @@ body {
 [contenteditable]:focus { outline: 0px solid transparent; }
 
 .material-icons {
-    z-index: 9999 !important;
+    z-index: 999 !important;
     outline: none;
     font-family: 'Material Icons';
     font-weight: normal;
@@ -61,7 +61,7 @@ body {
 }
 
 .anview-logo {
-    z-index: 9999;
+    z-index: 999;
     position: absolute;
     left: 3%;
 }
@@ -74,7 +74,7 @@ body {
 
 .icones i {
     cursor: pointer;
-    color: rgba(0,0,0,0.87) !important;
+    color: rgba(0, 0, 0, 0.56);
 }
 
 .box {
@@ -102,9 +102,11 @@ body {
 .md-button.md-default-theme:not([disabled]):hover, .md-button:not([disabled]):hover {
     background-color: rgba(195, 241, 255, 0.22);
 }
-
+.header-icones{
+    padding: 7px !important;
+}
 .note-title {
-    z-index: 9999;
+    z-index: 999;
     width: 100%;
     background: #fff;
 }
@@ -150,7 +152,17 @@ body {
     padding: 4px 3px;
 }
 
+button[disabled="disabled"] {
+    background-color: rgba(73, 162, 227, 0.47) !important;
+}
+button[disabled="disabled"] > i {
+    color:rgb(174, 177, 179) !important;
+}
 
+
+.search-box {
+    margin-top: 2px;
+}
 input[type=text].search {
     color:#000;
     float:right;
@@ -166,19 +178,8 @@ input[type=text].search {
 
 input[type=text].active {
     outline: none;
-    border-bottom: 2px solid #bfbfbf;
     width: 80%;
     border-bottom: 2px solid #01579b;
-}
-@keyframes mymove {
-    0%   {
-        width: 82px;
-        border-bottom: 2px solid #e3f2fd;
-    }
-    100% {
-        width: 80%;
-        border-bottom: 2px solid #01579b;
-    }
 }
 
 .h-93 {
@@ -229,12 +230,16 @@ input[type=text].active {
 .md-whiteframe-1dp {
     outline: none;
 }
+.width-100{
+    width: 100% !important;
+}
 
 
 /* Rules for sizing the icon. */
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-21 { font-size: 21px; }
 .material-icons.md-24 { font-size: 24px; }
+.material-icons.md-27 { font-size: 27px; }
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
 
@@ -249,6 +254,7 @@ input[type=text].active {
 
 ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
     background-color: #F3F2F1;
 }
 ::-webkit-scrollbar-track {
@@ -519,5 +525,21 @@ input[type=text].active {
     100%{
         opacity: 1;
         transform: scale(1) rotate(0deg);
+    }
+}
+
+@media print {
+    #page_content {
+        background-color: white;
+        height: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+        word-break: keep-all;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 15px;
+        z-index: 9999;
     }
 }
