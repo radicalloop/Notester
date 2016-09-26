@@ -243,6 +243,16 @@ function NoteService($http, $q, pouchdb, $rootScope)
     function deleteNote(currentNote) {
         var deferred = $q.defer();
 
+        var pages = currentNote.pages;
+        
+        //Delete all related pages first
+        if (pages.length)
+        {
+            angular.forEach(pages, function(page) {
+                deletePage(page);
+            });
+        }
+
         pouchdb.remove(currentNote).then(function (response) {
             deferred.resolve(response);
         }).catch(function (err) {
