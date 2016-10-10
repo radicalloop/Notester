@@ -5,3 +5,5 @@ _replicator
 pouch__all_dbs__
 log.txt
 nbproject
+notester.sublime-project
+notester.sublime-workspace
