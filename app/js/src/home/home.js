@@ -16,11 +16,11 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
 
     //Functions
     vm.addNote              = addNote;
+    vm.saveCurrentNote      = saveCurrentNote;
     vm.setCurrentNote       = setCurrentNote;
     vm.getPages             = getPages;
     vm.addPage              = addPage;
     vm.setCurrentPage       = setCurrentPage;
-    vm.saveCurrentNote      = saveCurrentNote;
     vm.getNotes             = getNotes;
     vm.getNoteCurrentState  = getNoteCurrentState;
     vm.checkPageExist       = checkPageExist;
@@ -40,12 +40,51 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
 
     //_destroyDb();
 
-    //Initialize here.
+    /*****************************************************************/
+    /********************** All private funcitons ********************/
+    /*****************************************************************/
+
     function init() {
         vm.getNotes();
     }
 
-    init();
+    function _getPageById(page_id) {
+        return $filter('filter')(vm.currentNote.pages, {_id: page_id})[0];
+    }
+
+    function _getUnSavedPages() {
+        return $filter('filter')(vm.currentNote.pages, {saved: false});
+    }
+
+    function _getPageIndex(page) {
+        var finalIndex  = vm.currentNote.pages.indexOf(page);
+
+        return finalIndex;
+    }
+
+    function _getNoteIndex(note) {
+        var finalIndex  = vm.notes.indexOf(note);
+
+        return finalIndex;
+    }
+
+    function _scrollToNote() {
+        document.getElementById(vm.currentNote._id).scrollIntoView();
+    }
+
+    function _deleteUnsavedPages() {
+        var unSavedPages = _getUnSavedPages();
+
+        angular.forEach(unSavedPages, function(page) {
+            var pageIndex = _getPageIndex(page);
+
+            vm.currentNote.pages.splice(pageIndex, 1);
+        });
+    }
+
+    /*****************************************************************/
+    /********************** Notes functions **************************/
+    /*****************************************************************/
 
     function addNote() {
         var newNoteCnt = (vm.notes.length + 1);
@@ -73,10 +112,64 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
         });
     }
 
+    function saveCurrentNote() {
+        NoteService.saveNote(vm.currentNote).then(function(response){
+
+        }, function(err){
+
+        });
+    }
+
     function setCurrentNote(index, note) {
         vm.currentNote  = note;
         vm.selectedNote = index;
     }
+
+    function getNotes() {
+        NoteService.getNotes().then(function(response) {
+            vm.notes = response;
+
+            //Default add one new note
+            if (vm.notes.length === 0)
+            {
+               vm.addNote();
+            }
+            else
+            {
+                vm.getNoteCurrentState();
+            }
+        }, function(error) {
+            console.log(error);
+        });
+    }
+
+    function getNoteCurrentState() {
+        NoteService.getNoteCurrentState().then(function(response) {
+            vm.currentState = response;
+
+            var lastSelectedNote      = $filter('filter')(vm.notes, {_id: vm.currentState.current_note})[0];
+            var indexLastSelectedNote = vm.notes.indexOf(lastSelectedNote);
+
+            if (indexLastSelectedNote >= 0)
+            {
+                vm.setCurrentNote(indexLastSelectedNote, lastSelectedNote);
+                vm.getPages(indexLastSelectedNote, lastSelectedNote, vm.currentState.current_page);
+
+                _scrollToNote();
+            }
+            else
+            {
+                vm.setCurrentNote(0, vm.notes[0]);
+                vm.getPages(0, vm.notes[0]);
+            }
+        }, function(error) {
+            console.log(error);
+        });
+    }
+
+    /*****************************************************************/
+    /********************** Pages functions **************************/
+    /*****************************************************************/
 
     function getPages(index, note, page_id) {
         vm.hideEditor  = false;
@@ -125,36 +218,6 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
         }
     }
 
-    function _getPageById(page_id) {
-        return $filter('filter')(vm.currentNote.pages, {_id: page_id})[0];
-    }
-
-    function _getUnSavedPages() {
-        return $filter('filter')(vm.currentNote.pages, {saved: false});
-    }
-
-    function _getPageIndex(page) {
-        var finalIndex  = vm.currentNote.pages.indexOf(page);
-
-        return finalIndex;
-    }
-
-    function _getNoteIndex(note) {
-        var finalIndex  = vm.notes.indexOf(note);
-
-        return finalIndex;
-    }
-
-    function _deleteUnsavedPages() {
-        var unSavedPages = _getUnSavedPages();
-
-        angular.forEach(unSavedPages, function(page) {
-            var pageIndex = _getPageIndex(page);
-
-            vm.currentNote.pages.splice(pageIndex, 1);
-        });
-    }
-
     function setCurrentPage(index, page) {
         if (vm.currentPage && false === vm.currentPage.saved && page !== vm.currentPage)
         {
@@ -201,60 +264,6 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
         vm.setCurrentPage(vm.selectedPage, newPage);
     }
 
-    function saveCurrentNote() {
-        NoteService.saveNote(vm.currentNote).then(function(response){
-
-        }, function(err){
-
-        });
-    }
-
-    function getNotes() {
-        NoteService.getNotes().then(function(response) {
-            vm.notes = response;
-
-            //Default add one new note
-            if (vm.notes.length === 0)
-            {
-               vm.addNote();
-            }
-            else
-            {
-                vm.getNoteCurrentState();
-            }
-        }, function(error) {
-            console.log(error);
-        });
-    }
-
-    function getNoteCurrentState() {
-        NoteService.getNoteCurrentState().then(function(response) {
-            vm.currentState = response;
-
-            var lastSelectedNote      = $filter('filter')(vm.notes, {_id: vm.currentState.current_note})[0];
-            var indexLastSelectedNote = vm.notes.indexOf(lastSelectedNote);
-
-            if (indexLastSelectedNote >= 0)
-            {
-                vm.setCurrentNote(indexLastSelectedNote, lastSelectedNote);
-                vm.getPages(indexLastSelectedNote, lastSelectedNote, vm.currentState.current_page);
-
-                scrollToNote();
-            }
-            else
-            {
-                vm.setCurrentNote(0, vm.notes[0]);
-                vm.getPages(0, vm.notes[0]);
-            }
-        }, function(error) {
-            console.log(error);
-        });
-    }
-
-    function scrollToNote() {
-        document.getElementById(vm.currentNote._id).scrollIntoView();
-    }
-
     function searchPages() {
         vm.hideEditor = false;
 
@@ -285,17 +294,16 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
 
     var searchTimeout = null;
     var debounceSearch = function(newVal, oldVal) {
-        if (newVal != oldVal) {
-            if (searchTimeout) {
+        if (newVal != oldVal)
+        {
+            if (searchTimeout)
+            {
                 $timeout.cancel(searchTimeout);
             }
 
             searchTimeout = $timeout(searchPages, 500);  // 1000 = 1 second
         }
     };
-
-    $scope.$watch('vm.searchTerm', debounceSearch);
-
 
     function checkPageExist() {
         if (vm.currentNote && !vm.currentNote.pages.length)
@@ -342,20 +350,6 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
         vm.doPageSave = true;
     };
 
-    $scope.$watch('vm.currentPage.content', debounceSavePage);
-
-    //Watching delete events
-    $scope.$on('click', function(onEvent, event) {
-        vm.selectedSection = false;
-    });
-
-    $scope.$on('keydown', function(onEvent, event) {
-        if (event.which === 8 || event.which === 46)
-        {
-            deleteNoteOrPage();
-        }
-    });
-
     function deleteNoteOrPage() {
         if (vm.selectedSection === 'page')
         {
@@ -366,57 +360,9 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
                 cancelId  : 0,
                 defaultId : 1
             }, function(response){
-
-                if(response)
+                if (response)
                 {
-                    var pageIndex = vm.selectedPage;
-
-                    if (vm.currentPage && false === vm.currentPage.saved)
-                    {
-                        //Delete unsaved page and set to first index
-                        _deleteUnsavedPages();
-
-                        if (vm.currentNote.pages.length)
-                        {
-                            vm.setCurrentPage(0, vm.currentNote.pages[0]);
-                        }
-                    }
-                    else
-                    {
-                        NoteService.deletePage(vm.currentPage).then(function(response) {
-
-                            //delete vm.currentNote.pages[pageIndex];
-                            vm.currentNote.pages.splice(pageIndex, 1);
-
-                            if (vm.currentNote.pages.length)
-                            {
-                                var nextPageIndex = pageIndex;
-                                var nextPage      = vm.currentNote.pages[nextPageIndex];
-
-                                if (nextPage)
-                                {
-                                    vm.setCurrentPage(nextPageIndex, nextPage);
-                                }
-                                else if (vm.currentNote.pages.length)
-                                {
-                                    nextPageIndex = 0;
-                                    nextPage      = vm.currentNote.pages[0];
-
-                                    vm.setCurrentPage(nextPageIndex, nextPage);
-                                }
-
-                                vm.currentActiveSection('page');
-                            }
-                            else
-                            {
-                                delete vm.currentPage;
-                            }
-                        }, function(err) {
-                            vm.currentNote.pages.splice(pageIndex, 1);
-
-                            console.log(err);
-                        });
-                    }
+                    _deletePage();
                 }
             });
         }
@@ -430,46 +376,115 @@ function HomeController($scope, $state, $timeout, $window, $filter, NoteService,
                 cancelId  : 0,
                 defaultId : 1
             }, function(response){
-
                 if(response)
                 {
-                    var noteIndex = vm.selectedNote;
-
-                    NoteService.deleteNote(vm.currentNote).then(function(response) {
-
-                        vm.notes.splice(noteIndex, 1);
-
-                        if (vm.notes.length)
-                        {
-                            var nextNote = vm.notes[noteIndex];
-
-                            if (!nextNote)
-                            {
-                                noteIndex = 0;
-                                nextNote  = vm.notes[0];
-                            }
-
-                            vm.setCurrentNote(noteIndex, nextNote);
-                            vm.getPages(noteIndex, nextNote);
-
-                            vm.currentActiveSection('note');
-                        }
-                        else
-                        {
-                            vm.currentNote = false;
-                        }
-
-                    }, function(err) {
-                        console.log(err);
-                    });
+                    _deleteNote();
                 }
             });
         }
     }
 
+    function _deletePage() {
+        var pageIndex = vm.selectedPage;
+
+        if (vm.currentPage && false === vm.currentPage.saved)
+        {
+            //Delete unsaved page and set to first index
+            _deleteUnsavedPages();
+
+            if (vm.currentNote.pages.length)
+            {
+                vm.setCurrentPage(0, vm.currentNote.pages[0]);
+            }
+        }
+        else
+        {
+            NoteService.deletePage(vm.currentPage).then(function(response) {
+
+                //delete vm.currentNote.pages[pageIndex];
+                vm.currentNote.pages.splice(pageIndex, 1);
+
+                if (vm.currentNote.pages.length)
+                {
+                    var nextPageIndex = pageIndex;
+                    var nextPage      = vm.currentNote.pages[nextPageIndex];
+
+                    if (!nextPage && vm.currentNote.pages.length)
+                    {
+                        nextPageIndex = 0;
+                        nextPage      = vm.currentNote.pages[0];
+                    }
+
+                    vm.setCurrentPage(nextPageIndex, nextPage);
+                    vm.currentActiveSection('page');
+                }
+                else
+                {
+                    delete vm.currentPage;
+                }
+            }, function(err) {
+                vm.currentNote.pages.splice(pageIndex, 1);
+
+                console.log(err);
+            });
+        }
+    }
+
+    function _deleteNote()
+    {
+        var noteIndex = vm.selectedNote;
+
+        NoteService.deleteNote(vm.currentNote).then(function(response) {
+
+            vm.notes.splice(noteIndex, 1);
+
+            if (vm.notes.length)
+            {
+                var nextNote = vm.notes[noteIndex];
+
+                if (!nextNote)
+                {
+                    noteIndex = 0;
+                    nextNote  = vm.notes[0];
+                }
+
+                vm.setCurrentNote(noteIndex, nextNote);
+                vm.getPages(noteIndex, nextNote);
+
+                vm.currentActiveSection('note');
+            }
+            else
+            {
+                vm.currentNote = false;
+            }
+
+        }, function(err) {
+            console.log(err);
+        });
+    }
+
     function printPage() {
         window.print();
     }
+
+    // Watch models and listen events
+    $scope.$watch('vm.searchTerm', debounceSearch);
+    $scope.$watch('vm.currentPage.content', debounceSavePage);
+
+    $scope.$on('click', function(onEvent, event) {
+        vm.selectedSection = false;
+    });
+
+    $scope.$on('keydown', function(onEvent, event) {
+        if (event.which === 8 || event.which === 46)
+        {
+            deleteNoteOrPage();
+        }
+    });
+
+
+    // Initialize
+    init();
 }
 
 angular
