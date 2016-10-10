@@ -26,3 +26,15 @@ Installation / Set-up steps:
  `npm start`
  
 - Enjoy using / Contribute :)
+
+Screenshots:
+
+1)
+![alt tag](https://github.com/radicalloop/Notester/blob/master/screens/Notester-1.png)
+
+2)
+![alt tag](https://github.com/radicalloop/Notester/blob/master/screens/Notester-2.png)
+
+3)
+![alt tag](https://github.com/radicalloop/Notester/blob/master/screens/Notester-3.png)
+
