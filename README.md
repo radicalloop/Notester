@@ -2,7 +2,7 @@ A simple notes-taking desktop application, inspired by Mac Notes.
 
 Built with ♥ by:
 
-- The Open Source and Javascript loving team at http://www.radicalloop.com
+- The Open Source and Javascript loving team at https://www.radicalloop.com
 
 Built with:
 
