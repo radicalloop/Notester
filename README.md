@@ -1,9 +1,5 @@
 A simple notes-taking desktop application, inspired by Mac Notes.
 
-Built with ♥ by:
-
-- The Open Source and Javascript loving team at https://www.radicalloop.com
-
 Built with:
 
 - Electron (http://electron.atom.io)
@@ -38,3 +34,8 @@ Screenshots:
 3)
 ![alt tag](https://github.com/radicalloop/Notester/blob/master/screens/Notester-3.png)
 
+-------------
+
+Built with ♥ by:
+
+- The Open Source and Javascript loving team at https://www.radicalloop.com
